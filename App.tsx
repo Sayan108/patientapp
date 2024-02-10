@@ -6,20 +6,28 @@
  */
 
 import React from 'react';
-import {Button, SafeAreaView, useColorScheme, View} from 'react-native';
-import {useDispatch, UseDispatch} from 'react-redux';
-import {authRequested, authSuccess} from './src/redux/silces/auth.silce';
-function App(): React.JSX.Element {
-  const dispatch = useDispatch();
 
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {RootState} from './src/redux/silces';
+import HomeScreen from './src/screens/homeScreen';
+function App(): React.JSX.Element {
+  const {isAuthenticated} = useSelector((state: RootState) => state.auth);
+  const Stack = createNativeStackNavigator();
   return (
-    <SafeAreaView>
-      <Button
-        title="click me"
-        onPress={() => {
-          dispatch(authSuccess({}));
-        }}></Button>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="home"
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Group>
+          <Stack.Screen name="home" component={HomeScreen} />
+        </Stack.Group>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
