@@ -1,18 +1,29 @@
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
+
 import React, {useState} from 'react';
 import {colors, style} from '../styles';
 import useAuthService, {sendOTPPayload} from '../hooks/useAuthServices';
+import {phoneNumberRegex} from '../regex.config';
+import {Toast} from 'toastify-react-native';
 const PhoneInputScreen = ({navigation}: {navigation: any}) => {
   const {handleSendOTP} = useAuthService();
   const [phoneNumber, setphoneNumber] = useState('');
   const handlePhoneNumberChange = (text: string) => {
+    const re = /^[0-9\b]+$/;
+
+    // if value is not blank, then test the regex
+
     setphoneNumber(text);
   };
 
   const handleSendOTPButtonClick = () => {
-    const payload: sendOTPPayload = {phoneNumber};
-    handleSendOTP(payload, navigation);
+    if (phoneNumber.length === 10) {
+      const payload: sendOTPPayload = {phoneNumber};
+      handleSendOTP(payload, navigation);
+    } else {
+      Toast.success('Enter valid number');
+    }
   };
   return (
     <View style={style.view}>
@@ -31,6 +42,8 @@ const PhoneInputScreen = ({navigation}: {navigation: any}) => {
         </Text>
         <View>
           <TextInput
+            autoFocus
+            autoComplete="tel"
             value={phoneNumber}
             label="Mobile number"
             mode="outlined"
@@ -38,6 +51,7 @@ const PhoneInputScreen = ({navigation}: {navigation: any}) => {
             onChangeText={handlePhoneNumberChange}
             placeholder="0000000000"
             placeholderTextColor="gray"></TextInput>
+          <Text style={{color: colors.textColor}}></Text>
           <View style={{paddingTop: 100}}>
             <Button
               style={{backgroundColor: colors.primaryColor}}

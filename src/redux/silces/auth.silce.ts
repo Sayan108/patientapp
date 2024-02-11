@@ -13,11 +13,16 @@ export const authSlice = createSlice({
       };
     },
     otpSuccess: (state: IAuthState, action: PayloadAction<any>) => {
+      console.log(action.payload);
       return {
         ...state,
-
+        userDetails: {
+          userName: '',
+          fullname: '',
+          email: '',
+          phoneNumber: action.payload.data.phonenumber,
+        },
         isLoading: false,
-        userDetails: action.payload,
       };
     },
     otpFailed: (state: IAuthState, action: PayloadAction<any>) => {
@@ -39,7 +44,7 @@ export const authSlice = createSlice({
         ...state,
         isAuthenticated: true,
         isLoading: false,
-        userDetails: action.payload,
+        // userDetails: action.payload,
       };
     },
     authFailed: (state: IAuthState, action: PayloadAction<any>) => {

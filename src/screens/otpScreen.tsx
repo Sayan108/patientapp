@@ -2,11 +2,24 @@ import {View, Text, Image, Touchable} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 import React, {useState} from 'react';
 import {colors, style} from '../styles';
+import {useSelector, useDispatch} from 'react-redux';
+import {RootState} from '../redux/silces';
+import {authRequested} from '../redux/silces/auth.silce';
+import useAuthService from '../hooks/useAuthServices';
 
 const OTPInputScreen = ({navigation}: {navigation: any}) => {
-  const [OTP, setOTP] = useState('');
+  const {handleLogIn} = useAuthService();
+  const dispatch = useDispatch();
+  const phoneNumber = useSelector(
+    (state: RootState) => state.auth.userDetails?.phoneNumber,
+  );
+  const [OTP, setOTP] = useState<string>('');
   const handleOTPChange = (text: string) => {
     setOTP(text);
+  };
+
+  const handleLoginButtonClick = () => {
+    handleLogIn(OTP, navigation);
   };
   return (
     <View style={style.view}>
@@ -21,9 +34,9 @@ const OTPInputScreen = ({navigation}: {navigation: any}) => {
       <View style={style.loginPageTextContainer}>
         <Text style={style.loginPageTextPrimary}>OTP Verification</Text>
         <Text style={style.loginPageTextSecondary}>
-          We have sent you a verification code in your mobile no +9174*****293
+          {`We have sent you a verification code in your mobile no ${phoneNumber}`}
         </Text>
-        <View style={{paddingBottom: 30}}>
+        <View>
           <TextInput
             value={OTP}
             label="OTP"
@@ -33,13 +46,27 @@ const OTPInputScreen = ({navigation}: {navigation: any}) => {
             placeholder="0000"
             placeholderTextColor="gray"></TextInput>
 
-          <View style={{display: 'flex'}}>
-            <Text style={{color: colors.textColor}}>
-              Did'nt recieve the code? <Button mode="text"> Resend</Button>
-            </Text>
-          </View>
-
-          <View style={{paddingTop: 100}}>
+          <View style={{paddingTop: 10}}>
+            <View style={{display: 'flex', flexDirection: 'row'}}>
+              <Text
+                style={{
+                  color: colors.textColor,
+                  justifyContent: 'space-between',
+                }}>
+                Didn't recieve the code?
+              </Text>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  justifyContent: 'space-between',
+                  color: colors.primaryColor,
+                }}
+                onPress={() => {
+                  navigation.navigate('phoneinput');
+                }}>
+                Resend
+              </Text>
+            </View>
             <Button
               aria-disabled
               mode="text"
@@ -47,10 +74,13 @@ const OTPInputScreen = ({navigation}: {navigation: any}) => {
               onPress={() => navigation.navigate('phoneinput')}>
               Change number
             </Button>
+          </View>
+
+          <View style={{paddingTop: 50}}>
             <Button
               style={{backgroundColor: colors.primaryColor}}
               mode="contained"
-              onPress={() => console.log('Pressed')}>
+              onPress={handleLoginButtonClick}>
               Login
             </Button>
           </View>

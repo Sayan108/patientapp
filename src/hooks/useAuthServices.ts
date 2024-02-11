@@ -1,5 +1,12 @@
 import {useDispatch} from 'react-redux';
-import {otpFailed, otpRequested, otpSuccess} from '../redux/silces/auth.silce';
+import {
+  authFailed,
+  authRequested,
+  authSuccess,
+  otpFailed,
+  otpRequested,
+  otpSuccess,
+} from '../redux/silces/auth.silce';
 
 export interface sendOTPPayload {
   phoneNumber: string;
@@ -24,8 +31,18 @@ const useAuthService = () => {
     }
   };
 
+  const handleLogIn = async (payload: string, navigation: any) => {
+    dispatch(authRequested());
+    try {
+      dispatch(authSuccess({}));
+    } catch (error) {
+      dispatch(authFailed(error));
+    }
+  };
+
   return {
     handleSendOTP,
+    handleLogIn,
   };
 };
 
