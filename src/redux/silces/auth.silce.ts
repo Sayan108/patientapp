@@ -6,6 +6,28 @@ export const authSlice = createSlice({
   initialState: IAuthStateInitialState,
 
   reducers: {
+    otpRequested: (state: IAuthState) => {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    },
+    otpSuccess: (state: IAuthState, action: PayloadAction<any>) => {
+      return {
+        ...state,
+
+        isLoading: false,
+        userDetails: action.payload,
+      };
+    },
+    otpFailed: (state: IAuthState, action: PayloadAction<any>) => {
+      return {
+        isAuthenticated: false,
+        isLoading: false,
+        userDetails: null,
+        errormessege: action.payload,
+      };
+    },
     authRequested: (state: IAuthState) => {
       return {
         ...state,
@@ -42,7 +64,9 @@ export const {
   authRequested,
   authSuccess,
   authFailed,
-
+  otpRequested,
+  otpSuccess,
+  otpFailed,
   logOut,
 } = authSlice.actions;
 
