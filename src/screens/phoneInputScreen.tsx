@@ -8,12 +8,9 @@ import {phoneNumberRegex} from '../regex.config';
 import {Toast} from 'toastify-react-native';
 const PhoneInputScreen = ({navigation}: {navigation: any}) => {
   const {handleSendOTP} = useAuthService();
-  const [phoneNumber, setphoneNumber] = useState('');
+  const [phoneNumber, setphoneNumber] = useState<string>('');
+  const [validNumber, setvalidNumber] = useState<boolean>(true);
   const handlePhoneNumberChange = (text: string) => {
-    const re = /^[0-9\b]+$/;
-
-    // if value is not blank, then test the regex
-
     setphoneNumber(text);
   };
 
@@ -42,6 +39,7 @@ const PhoneInputScreen = ({navigation}: {navigation: any}) => {
         </Text>
         <View>
           <TextInput
+            maxLength={14}
             autoFocus
             autoComplete="tel"
             value={phoneNumber}
@@ -51,7 +49,7 @@ const PhoneInputScreen = ({navigation}: {navigation: any}) => {
             onChangeText={handlePhoneNumberChange}
             placeholder="0000000000"
             placeholderTextColor="gray"></TextInput>
-          <Text style={{color: colors.textColor}}></Text>
+
           <View style={{paddingTop: 100}}>
             <Button
               style={{backgroundColor: colors.primaryColor}}

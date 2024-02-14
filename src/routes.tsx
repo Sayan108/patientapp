@@ -6,6 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useSelector} from 'react-redux';
 import {RootState} from './redux/silces';
 import OTPInputScreen from './screens/otpScreen';
+import HomeScreen from './screens/homeScreen';
 
 const Routes = () => {
   const {isAuthenticated} = useSelector((state: RootState) => state.auth);
@@ -20,6 +21,10 @@ const Routes = () => {
         <Stack.Group>
           <Stack.Screen name="phoneinput" component={PhoneInputScreen} />
           <Stack.Screen name="otpverification" component={OTPInputScreen} />
+          <Stack.Screen
+            name="home"
+            component={isAuthenticated ? HomeScreen : PhoneInputScreen}
+          />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
