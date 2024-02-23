@@ -7,6 +7,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from './redux/silces';
 import OTPInputScreen from './screens/otpScreen';
 import HomeScreen from './screens/homeScreen';
+import AddAppoinment from './screens/adddAppoinment';
 
 const Routes = () => {
   const {isAuthenticated} = useSelector((state: RootState) => state.auth);
@@ -24,6 +25,10 @@ const Routes = () => {
           <Stack.Screen
             name="home"
             component={isAuthenticated ? HomeScreen : PhoneInputScreen}
+          />
+          <Stack.Screen
+            name="addappoinment"
+            component={isAuthenticated ? AddAppoinment : PhoneInputScreen}
           />
         </Stack.Group>
       </Stack.Navigator>

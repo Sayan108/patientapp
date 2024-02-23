@@ -6,6 +6,7 @@ import {colors, style} from '../styles';
 import useAuthService, {sendOTPPayload} from '../hooks/useAuthServices';
 import {phoneNumberRegex} from '../regex.config';
 import {Toast} from 'toastify-react-native';
+import HelperText from 'react-native-paper';
 const PhoneInputScreen = ({navigation}: {navigation: any}) => {
   const {handleSendOTP} = useAuthService();
   const [phoneNumber, setphoneNumber] = useState<string>('');
@@ -39,7 +40,7 @@ const PhoneInputScreen = ({navigation}: {navigation: any}) => {
         </Text>
         <View>
           <TextInput
-            maxLength={14}
+            maxLength={10}
             autoFocus
             autoComplete="tel"
             value={phoneNumber}

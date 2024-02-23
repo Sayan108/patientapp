@@ -38,6 +38,8 @@ const OTPInputScreen = ({navigation}: {navigation: any}) => {
         </Text>
         <View>
           <TextInput
+            maxLength={4}
+            autoFocus
             value={OTP}
             label="OTP"
             mode="outlined"
