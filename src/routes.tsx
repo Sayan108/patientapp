@@ -9,6 +9,7 @@ import OTPInputScreen from './screens/otpScreen';
 import HomeScreen from './screens/homeScreen';
 import AddAppoinment from './screens/adddAppoinment';
 import ChooseDateandTime from './screens/chooseDateandTime';
+import ClinicLocation from './screens/clinicLocation';
 
 const Routes = () => {
   const {isAuthenticated} = useSelector((state: RootState) => state.auth);
@@ -34,6 +35,10 @@ const Routes = () => {
           <Stack.Screen
             name="choosedateandtime"
             component={isAuthenticated ? ChooseDateandTime : PhoneInputScreen}
+          />
+          <Stack.Screen
+            name="chooseclinic"
+            component={isAuthenticated ? ClinicLocation : PhoneInputScreen}
           />
         </Stack.Group>
       </Stack.Navigator>

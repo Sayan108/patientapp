@@ -1,16 +1,18 @@
 import React from 'react';
 import {View, useWindowDimensions, StyleSheet} from 'react-native';
 import {Chip, Text} from 'react-native-paper';
+import {colors} from '../styles';
 
 interface ChipsGridProps {
-  data: string[];
-  onSelect: (item: string) => void;
+  data: any[];
+  onSelect: (item: any) => void;
+  selectedId: number;
 }
 
-const ChipsGrid: React.FC<ChipsGridProps> = ({data, onSelect}) => {
+const ChipsGrid: React.FC<ChipsGridProps> = ({data, onSelect, selectedId}) => {
   const windowWidth = useWindowDimensions().width;
 
-  const handleChipPress = (item: string) => {
+  const handleChipPress = (item: number) => {
     onSelect(item);
   };
 
@@ -20,13 +22,20 @@ const ChipsGrid: React.FC<ChipsGridProps> = ({data, onSelect}) => {
   };
 
   const renderChips = () => {
-    return data.map((chip, index) => (
+    return data.map((chip: any, index: number) => (
       <Chip
         key={index}
-        style={[styles.chip, {width: calculateChipWidth(chip)}]}
+        style={[
+          styles.chipNotSelected,
+          {
+            // width: calculateChipWidth(chip.value),
+            backgroundColor:
+              chip.id === selectedId ? 'rgba(245, 71, 73, 0.3)' : 'white',
+          },
+        ]}
         onPress={() => handleChipPress(chip)}
         mode="outlined">
-        {chip}
+        {chip.value}
       </Chip>
     ));
   };
@@ -38,13 +47,20 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-between',
     alignItems: 'center',
     padding: 8,
   },
-  chip: {
+  chipSelected: {
     margin: 4,
     borderRadius: 30,
+    borderColor: colors.primaryColor,
+  },
+  chipNotSelected: {
+    width: 100,
+    margin: 4,
+    borderRadius: 30,
+    borderColor: colors.primaryColor,
   },
 });
 

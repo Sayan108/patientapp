@@ -4,23 +4,15 @@ import {Appbar, TextInput, Button, Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import HelperText from '../components/helperText';
 import {colors} from '../styles';
+import Layout from '../components/layOut';
 
 const AddAppointment = ({navigation}: {navigation: any}) => {
   const [appointmentDetails, setAppointmentDetails] = useState<any>({});
-
+  const handleNavigation = () => {
+    navigation.navigate('home');
+  };
   return (
-    <View style={styles.container}>
-      <Appbar.Header style={styles.header}>
-        <Icon
-          name="arrow-left"
-          size={35}
-          color={colors.textColor}
-          onPress={() => {
-            navigation.navigate('home');
-          }}
-        />
-        <Text style={styles.title}>Make an appointment</Text>
-      </Appbar.Header>
+    <Layout navigation={handleNavigation} headerText="Add an appoinment">
       <TextInput
         maxLength={50}
         autoFocus
@@ -119,7 +111,7 @@ const AddAppointment = ({navigation}: {navigation: any}) => {
         labelStyle={styles.buttonLabel}>
         Next
       </Button>
-    </View>
+    </Layout>
   );
 };
 
