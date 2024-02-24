@@ -4,7 +4,6 @@ import Layout from '../components/layOut';
 import {colors} from '../styles';
 import AddAppoinmentButton from '../components/addAppoinmentButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Button} from 'react-native-paper';
 
 const AppoinmentList = (props: any) => {
   const {navigation, setIndex} = props;
@@ -148,7 +147,6 @@ const AppoinmentList = (props: any) => {
     },
   ];
   const conditionalFunction = () => {
-    navigation.navigate('home');
     setIndex(0);
   };
 

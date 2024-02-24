@@ -12,6 +12,7 @@ import ChooseDateandTime from './screens/chooseDateandTime';
 import ClinicLocation from './screens/clinicLocation';
 import BookingDetails from './screens/bookingDetails';
 import AppoinmentList from './screens/appoinmentList';
+import AppointmenSuccess from './screens/appoinmentSuccess';
 
 const Routes = () => {
   const {isAuthenticated} = useSelector((state: RootState) => state.auth);
@@ -49,6 +50,10 @@ const Routes = () => {
           <Stack.Screen
             name="appointmentdetails"
             component={isAuthenticated ? BookingDetails : PhoneInputScreen}
+          />
+          <Stack.Screen
+            name="appoinmentsuccess"
+            component={isAuthenticated ? AppointmenSuccess : PhoneInputScreen}
           />
         </Stack.Group>
       </Stack.Navigator>

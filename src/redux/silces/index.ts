@@ -1,11 +1,13 @@
-import { authReducer } from "./auth.silce";
-import { IAuthState } from "../redux.constants";
-import { combineReducers } from "@reduxjs/toolkit";
-export type RootState={
-    auth :IAuthState
-}
+import {authReducer} from './auth.silce';
+import {IApplicationStates, IAuthState} from '../redux.constants';
+import {combineReducers} from '@reduxjs/toolkit';
+import {applicationReducer} from './application.slice';
+export type RootState = {
+  auth: IAuthState;
+  appliction: IApplicationStates;
+};
 
 export const rootReducer = combineReducers({
-    auth: authReducer,
-   
-  });
+  auth: authReducer,
+  application: applicationReducer,
+});

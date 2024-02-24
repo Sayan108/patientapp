@@ -5,7 +5,6 @@ import {rootReducer} from './silces';
 
 import {
   persistStore,
-  persistReducer,
   FLUSH,
   REHYDRATE,
   PAUSE,

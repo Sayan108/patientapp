@@ -71,7 +71,7 @@ const BookingDetails = ({navigation}: {navigation: any}) => {
       <Button
         mode="contained"
         onPress={() => {
-          navigation.navigate('appoinmentlist');
+          navigation.navigate('appoinmentsuccess');
         }}
         style={styles.button}
         labelStyle={styles.buttonLabel}>

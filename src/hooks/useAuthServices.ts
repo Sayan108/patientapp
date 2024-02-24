@@ -7,6 +7,7 @@ import {
   otpRequested,
   otpSuccess,
 } from '../redux/silces/auth.silce';
+import {changehomeScreenTab} from '../redux/silces/application.slice';
 
 export interface sendOTPPayload {
   phoneNumber: string;
@@ -31,6 +32,7 @@ const useAuthService = () => {
     dispatch(authRequested());
     try {
       dispatch(authSuccess({}));
+      dispatch(changehomeScreenTab(1));
       navigation.navigate('home');
     } catch (error) {
       dispatch(authFailed(error));

@@ -1,11 +1,13 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
-import {Appbar, BottomNavigation, Button, List} from 'react-native-paper';
+
+import {BottomNavigation} from 'react-native-paper';
 import HomePageComponent from '../components/homePageComponents';
 import AppoinmentList from './appoinmentList';
 
 const HomeScreen = ({navigation}: {navigation: any}) => {
   const [index, setIndex] = React.useState(0);
+  // const {homeScreenTab} = useSelector((state: RootState) => state.appliction);
+
   const homePageRoute = () => (
     <HomePageComponent setIndex={setIndex} navigation={navigation} />
   );
