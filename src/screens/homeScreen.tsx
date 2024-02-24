@@ -2,22 +2,22 @@ import * as React from 'react';
 import {View, Text} from 'react-native';
 import {Appbar, BottomNavigation, Button, List} from 'react-native-paper';
 import HomePageComponent from '../components/homePageComponents';
-
-const AlbumsRoute = () => <Text>Albums</Text>;
-
-const RecentsRoute = () => <Text>Recents</Text>;
-
-const NotificationsRoute = () => <Text>Notifications</Text>;
+import AppoinmentList from './appoinmentList';
 
 const HomeScreen = ({navigation}: {navigation: any}) => {
+  const [index, setIndex] = React.useState(0);
   const homePageRoute = () => (
     <HomePageComponent setIndex={setIndex} navigation={navigation} />
+  );
+
+  const allAppoinmentList = () => (
+    <AppoinmentList navigation={navigation} setIndex={setIndex} />
   );
   const [expanded, setexpanded] = React.useState(false);
   const handleShowHideMyProfile = () => {
     setexpanded(!expanded);
   };
-  const [index, setIndex] = React.useState(0);
+
   const [routes] = React.useState([
     {
       key: 'home',
@@ -26,23 +26,16 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
       unfocusedIcon: 'home-outline',
     },
     {
-      key: 'albums',
+      key: 'appoinments',
       title: 'Appoinments',
       focusedIcon: 'timer-sand-full',
       unfocusedIcon: 'timer-sand-empty',
-    },
-    {
-      key: 'recents',
-      title: 'Recents',
-      focusedIcon: 'history',
     },
   ]);
 
   const renderScene = BottomNavigation.SceneMap({
     home: homePageRoute,
-    albums: AlbumsRoute,
-    recents: RecentsRoute,
-    notifications: NotificationsRoute,
+    appoinments: allAppoinmentList,
   });
 
   return (

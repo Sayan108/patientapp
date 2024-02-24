@@ -4,7 +4,7 @@ import {Appbar, Button} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors} from '../styles';
 import AppoinmentCard from './appoinmentCard';
-import PlusIcon from '../PlusIcon';
+import AddAppoinmentButton from './addAppoinmentButton';
 
 const HomePageComponent = (props: any) => {
   const {setIndex, navigation} = props;
@@ -52,15 +52,7 @@ const HomePageComponent = (props: any) => {
           <AppoinmentCard />
         </View>
       </View>
-      <Icon
-        style={{position: 'absolute', bottom: 35, right: 35}}
-        size={80}
-        name="plus-circle"
-        color={colors.primaryColor}
-        onPress={() => {
-          navigation.navigate('addappoinment');
-        }}
-      />
+      <AddAppoinmentButton navigation={navigation} />
     </View>
   );
 };
