@@ -8,6 +8,7 @@ import {RootState} from './redux/silces';
 import OTPInputScreen from './screens/otpScreen';
 import HomeScreen from './screens/homeScreen';
 import AddAppoinment from './screens/adddAppoinment';
+import ChooseDateandTime from './screens/chooseDateandTime';
 
 const Routes = () => {
   const {isAuthenticated} = useSelector((state: RootState) => state.auth);
@@ -29,6 +30,10 @@ const Routes = () => {
           <Stack.Screen
             name="addappoinment"
             component={isAuthenticated ? AddAppoinment : PhoneInputScreen}
+          />
+          <Stack.Screen
+            name="choosedateandtime"
+            component={isAuthenticated ? ChooseDateandTime : PhoneInputScreen}
           />
         </Stack.Group>
       </Stack.Navigator>

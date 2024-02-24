@@ -38,6 +38,7 @@ const OTPInputScreen = ({navigation}: {navigation: any}) => {
         </Text>
         <View>
           <TextInput
+            keyboardType="phone-pad"
             maxLength={4}
             autoFocus
             value={OTP}
