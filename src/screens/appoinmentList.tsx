@@ -1,4 +1,11 @@
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Dimensions,
+  Linking,
+} from 'react-native';
 import React from 'react';
 import Layout from '../components/layOut';
 import {colors} from '../styles';
@@ -6,6 +13,20 @@ import AddAppoinmentButton from '../components/addAppoinmentButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const AppoinmentList = (props: any) => {
+  const screenWidth = Dimensions.get('window').width;
+  const screenHeight = Dimensions.get('window').height;
+  const handleOpenPhoneApp = (phone: string) => {
+    // Use the tel: scheme to open the phone app
+    Linking.openURL(`tel:${phone}`);
+  };
+  const handleOpenWhatsApp = (number: string) => {
+    // Use the whatsapp: scheme to open WhatsApp
+    Linking.openURL(`whatsapp://send?phone=${number}`);
+    // Replace PHONE_NUMBER with the phone number you want to message
+  };
+  // Calculate icon size based on screen dimensions
+  const iconSize = Math.min(screenWidth, screenHeight) * 0.1;
+
   const {navigation, setIndex} = props;
   const appointments = [
     {
@@ -203,17 +224,17 @@ const AppoinmentList = (props: any) => {
             </View>
 
             <Icon
-              onPress={() => {}}
+              onPress={() => handleOpenPhoneApp(item.clinicPhone)}
               name="phone"
               color={colors.primaryColor}
-              size={35}
+              size={25}
               style={{marginRight: 20}}
             />
             <Icon
-              onPress={() => {}}
+              onPress={() => handleOpenWhatsApp(item.clinicPhone)}
               name="whatsapp"
               color={'green'}
-              size={35}
+              size={25}
             />
           </View>
         ))}

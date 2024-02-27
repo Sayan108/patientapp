@@ -66,12 +66,14 @@ const ChooseDateandTime = ({navigation}: {navigation: any}) => {
         data={consecutiveDays}
         onSelect={handleDateSelect}
         selectedId={selectedDateId.id}
+        type="date"
       />
       <Text style={styles.subtitle}>{'Choose time'}</Text>
       <ChipsGrid
         data={timeSlots}
         onSelect={handleTimeSlotSelect}
         selectedId={selectedTimeSlot.id}
+        type="time"
       />
       <Button
         mode="contained"

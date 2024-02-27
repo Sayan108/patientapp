@@ -7,9 +7,15 @@ interface ChipsGridProps {
   data: any[];
   onSelect: (item: any) => void;
   selectedId: number;
+  type: 'date' | 'time';
 }
 
-const ChipsGrid: React.FC<ChipsGridProps> = ({data, onSelect, selectedId}) => {
+const ChipsGrid: React.FC<ChipsGridProps> = ({
+  data,
+  onSelect,
+  selectedId,
+  type,
+}) => {
   const windowWidth = useWindowDimensions().width;
 
   const handleChipPress = (item: number) => {
@@ -17,7 +23,7 @@ const ChipsGrid: React.FC<ChipsGridProps> = ({data, onSelect, selectedId}) => {
   };
 
   const calculateChipWidth = (text: string) => {
-    const textWidth = text.length * 8; // Assuming each character takes 8 units of width
+    const textWidth = text.length * (type === 'date' ? 8 : 15); // Assuming each character takes 8 units of width
     return textWidth + 32; // Adding padding to the chip
   };
 
@@ -28,14 +34,14 @@ const ChipsGrid: React.FC<ChipsGridProps> = ({data, onSelect, selectedId}) => {
         style={[
           styles.chipNotSelected,
           {
-            // width: calculateChipWidth(chip.value),
+            //  width: calculateChipWidth(chip.value),
             backgroundColor:
               chip.id === selectedId ? 'rgba(245, 71, 73, 0.3)' : 'white',
           },
         ]}
         onPress={() => handleChipPress(chip)}
         mode="outlined">
-        {chip.value}
+        <Text style={{alignSelf: 'center'}}>{chip.value}</Text>
       </Chip>
     ));
   };
@@ -52,15 +58,19 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   chipSelected: {
+    alignItems: 'center',
     margin: 4,
     borderRadius: 30,
     borderColor: colors.primaryColor,
+    width: 'auto',
   },
   chipNotSelected: {
-    width: 100,
+    alignItems: 'center',
+
     margin: 4,
     borderRadius: 30,
     borderColor: colors.primaryColor,
+    width: 'auto',
   },
 });
 
