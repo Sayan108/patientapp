@@ -124,7 +124,7 @@ const HomePageComponent = (props: any) => {
                 marginLeft: 60,
                 justifyContent: 'flex-end',
                 color: colors.primaryColor,
-                fontSize: 18,
+                fontSize: 16,
               }}
               onPress={() => {
                 setIndex(1);
