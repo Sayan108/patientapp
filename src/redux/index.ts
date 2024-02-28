@@ -1,4 +1,3 @@
-// store.js
 import {configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from '@redux-saga/core';
 import {rootReducer} from './silces';
@@ -13,19 +12,20 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-// import storage from 'redux-persist/lib/storage';
 import rootSaga from './saga/rootsaga';
 import logger from 'redux-logger';
+import persistReducer from 'redux-persist/es/persistReducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// const persistConfig = {
-//   key: 'doctorsApp',
-//   storage,
-// };
+const persistConfig = {
+  key: 'doctorsApp',
+  storage: AsyncStorage,
+};
 
-// const persistedReducer = persistReducer(persistConfig, rootReducer);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
