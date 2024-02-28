@@ -13,6 +13,8 @@ import ClinicLocation from './screens/clinicLocation';
 import BookingDetails from './screens/bookingDetails';
 import AppoinmentList from './screens/appoinmentList';
 import AppointmenSuccess from './screens/appoinmentSuccess';
+import MyProfile from './screens/myProfile';
+import AboutDoctor from './screens/aboutDoctor';
 
 const Routes = () => {
   const {isAuthenticated} = useSelector((state: RootState) => state.auth);
@@ -54,6 +56,14 @@ const Routes = () => {
           <Stack.Screen
             name="appoinmentsuccess"
             component={isAuthenticated ? AppointmenSuccess : PhoneInputScreen}
+          />
+          <Stack.Screen
+            name="myprofile"
+            component={isAuthenticated ? MyProfile : PhoneInputScreen}
+          />
+          <Stack.Screen
+            name="aboutdoctor"
+            component={isAuthenticated ? AboutDoctor : PhoneInputScreen}
           />
         </Stack.Group>
       </Stack.Navigator>

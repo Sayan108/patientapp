@@ -7,11 +7,12 @@ const AppoinmentCard = (props: any) => {
     <View
       style={{
         height: 186,
-        width: 330,
+        width: '98%',
         backgroundColor: 'rgba(245, 71, 73, 0.1)',
         display: 'flex',
         flexDirection: 'column',
         padding: 10,
+        paddingRight: 10,
         borderRadius: 20,
         alignItems: 'flex-start',
       }}>
