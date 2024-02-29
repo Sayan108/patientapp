@@ -1,18 +1,79 @@
-// // userSaga.js
+import {put, takeEvery, all, call} from 'redux-saga/effects';
+import {ActionType} from 'typesafe-actions';
+import {
+  appoinmentListFailure,
+  appoinmentListRequested,
+  appoinmentListSucess,
+  dateSlotFailure,
+  dateSlotRequested,
+  dateSlotSucess,
+  timeSlotFailure,
+  timeSlotRequested,
+  timeSlotSucess,
+  upcomingAppoinmentFailure,
+  upcomingAppoinmentRequested,
+  upcomingAppoinmentSucess,
+  userDataSlice,
+} from '../silces/userdata.slice';
+import {
+  IAppoinment,
+  appointments,
+  dateSlots,
+  timeSlots,
+} from '../redux.constants';
 
-// import {call, put, takeEvery} from 'redux-saga/effects';
+function* fetchUpcomingAppoinment(
+  action: ActionType<typeof upcomingAppoinmentRequested>,
+) {
+  try {
+    yield put(upcomingAppoinmentSucess(appointments[5]));
+  } catch (error) {
+    yield put(upcomingAppoinmentFailure(error));
+  }
+}
 
-// function* fetchUserDataSaga(action) {
-//   try {
-//     yield put(fetchUserRequest());
-//     const {userId} = action.payload; // Extract userId from action payload
-//     const userData = yield call(getUserData, userId); // Pass userId to the API call
-//     yield put(fetchUserSuccess(userData));
-//   } catch (error) {
-//     yield put(fetchUserFailure(error.message));
-//   }
-// }
+export function* watchFetchUpcomingAppoinment() {
+  yield takeEvery(upcomingAppoinmentRequested, fetchUpcomingAppoinment);
+}
 
-// export function* watchFetchUserData() {
-//   yield takeEvery('user/fetchUser', fetchUserDataSaga);
-// }
+function* fetchAppoinmentList(
+  action: ActionType<typeof appoinmentListRequested>,
+) {
+  try {
+    const data: IAppoinment[] = appointments;
+    console.log(data);
+    if (data.length > 0) yield put(appoinmentListSucess(data));
+  } catch (error) {
+    yield put(appoinmentListFailure(error));
+  }
+}
+
+export function* watchFetchAppoinmentList() {
+  yield takeEvery(typeof appoinmentListRequested, fetchAppoinmentList);
+}
+
+function* fetchDateSlots(action: ActionType<typeof dateSlotRequested>) {
+  try {
+    yield put(dateSlotSucess(dateSlots));
+  } catch (error) {
+    yield put(dateSlotFailure(error));
+  }
+}
+
+export function* watchFetchDateSlots() {
+  yield takeEvery(upcomingAppoinmentRequested.type, fetchDateSlots);
+}
+
+function* fetchTimeSlotsBasedOnDate(
+  action: ActionType<typeof timeSlotRequested>,
+) {
+  try {
+    yield put(timeSlotSucess(timeSlots));
+  } catch (error) {
+    yield put(timeSlotFailure(error));
+  }
+}
+
+export function* watchFetchTimeSlotsBasedOnDate() {
+  yield takeEvery(upcomingAppoinmentRequested.type, fetchTimeSlotsBasedOnDate);
+}

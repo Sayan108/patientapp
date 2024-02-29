@@ -64,10 +64,11 @@ export const userDataSlice = createSlice({
       state: UserData,
       action: PayloadAction<IAppoinment[]>,
     ) => {
+      console.log(typeof action.payload);
       return {
         ...state,
         appoinmentList: {
-          data: action.payload,
+          data: [...action.payload],
           loading: false,
           error: {},
         },

@@ -8,6 +8,12 @@ import {
   otpSuccess,
 } from '../redux/silces/auth.silce';
 import {changehomeScreenTab} from '../redux/silces/application.slice';
+import {
+  upcomingAppoinmentFailure,
+  upcomingAppoinmentRequested,
+  upcomingAppoinmentSucess,
+} from '../redux/silces/userdata.slice';
+import {appointments} from '../redux/redux.constants';
 
 export interface sendOTPPayload {
   phoneNumber: string;

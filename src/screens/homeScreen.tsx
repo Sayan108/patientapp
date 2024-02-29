@@ -4,16 +4,28 @@ import HomePageComponent from '../components/homePageComponents';
 import AppoinmentList from './appoinmentList';
 import {StyleSheet} from 'react-native';
 import {colors} from '../styles';
+import {useDispatch} from 'react-redux';
+import {appoinmentListRequested} from '../redux/silces/userdata.slice';
 
 const HomeScreen = ({navigation}: {navigation: any}) => {
   const [index, setIndex] = React.useState(0);
+  const dispatch = useDispatch();
+  const fetchAllAppoinments = () => {
+    dispatch(appoinmentListRequested());
+  };
+  const handleIndexChange = (params: number) => {
+    if (params === 1) {
+      fetchAllAppoinments();
+    }
+    setIndex(params);
+  };
 
   const homePageRoute = () => (
-    <HomePageComponent setIndex={setIndex} navigation={navigation} />
+    <HomePageComponent setIndex={handleIndexChange} navigation={navigation} />
   );
 
   const allAppointmentList = () => (
-    <AppoinmentList navigation={navigation} setIndex={setIndex} />
+    <AppoinmentList navigation={navigation} setIndex={handleIndexChange} />
   );
 
   const [routes] = React.useState([
@@ -47,7 +59,7 @@ const HomeScreen = ({navigation}: {navigation: any}) => {
   return (
     <BottomNavigation
       navigationState={{index, routes}}
-      onIndexChange={setIndex}
+      onIndexChange={handleIndexChange}
       renderScene={renderScene}
       style={styles.bottomNavigation}
       //  renderTouchable={customRenderTouchableRipple}

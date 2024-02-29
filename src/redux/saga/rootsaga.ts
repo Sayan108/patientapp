@@ -1,9 +1,15 @@
-import { all } from "redux-saga/effects";
-// import { watchAuthRequest, watchRegistrationRequest } from './auth.saga';
+import {all} from 'redux-saga/effects';
+import {
+  watchFetchAppoinmentList,
+  watchFetchDateSlots,
+  watchFetchTimeSlotsBasedOnDate,
+  watchFetchUpcomingAppoinment,
+} from './user.saga';
 export default function* rootSaga() {
   yield all([
-    // Add other sagas as needed
-    // watchAuthRequest(),
-    // watchRegistrationRequest()
+    watchFetchAppoinmentList(),
+    watchFetchDateSlots(),
+    watchFetchTimeSlotsBasedOnDate(),
+    watchFetchUpcomingAppoinment(),
   ]);
 }

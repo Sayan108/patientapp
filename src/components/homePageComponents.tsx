@@ -8,10 +8,12 @@ import AddAppoinmentButton from './addAppoinmentButton';
 import {logOut} from '../redux/silces/auth.silce';
 import {useDispatch} from 'react-redux';
 import LogoutDialoge from './logOutDialogue';
+// import { appoinmentListRequested } from '../redux/silces/userdata.slice';
 
 const HomePageComponent = (props: any) => {
   const {setIndex, navigation} = props;
   const dispatch = useDispatch();
+
   const [visible, setvisible] = useState<boolean>(false);
   const [showLogout, setshowLogout] = useState<boolean>(false);
   return (
@@ -138,6 +140,7 @@ const HomePageComponent = (props: any) => {
           </View>
         </View>
       )}
+      <AddAppoinmentButton navigation={navigation} />
     </View>
   );
 };
