@@ -4,19 +4,11 @@ import HomePageComponent from '../components/homePageComponents';
 import AppoinmentList from './appoinmentList';
 import {StyleSheet} from 'react-native';
 import {colors} from '../styles';
-import {useDispatch} from 'react-redux';
-import {appoinmentListRequested} from '../redux/silces/userdata.slice';
 
 const HomeScreen = ({navigation}: {navigation: any}) => {
   const [index, setIndex] = React.useState(0);
-  const dispatch = useDispatch();
-  const fetchAllAppoinments = () => {
-    dispatch(appoinmentListRequested());
-  };
+
   const handleIndexChange = (params: number) => {
-    if (params === 1) {
-      fetchAllAppoinments();
-    }
     setIndex(params);
   };
 

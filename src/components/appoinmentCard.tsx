@@ -7,12 +7,8 @@ import {RootState} from '../redux/silces';
 import {upcomingAppoinmentRequested} from '../redux/silces/userdata.slice';
 const AppoinmentCard = (props: any) => {
   const appoinmentDetails = useSelector(
-    (state: RootState) => state.userData?.upcomingAppoinment?.data,
+    (state: RootState) => state.auth.isAuthenticated,
   );
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(upcomingAppoinmentRequested());
-  }, []);
 
   return (
     <>
@@ -44,7 +40,7 @@ const AppoinmentCard = (props: any) => {
                     fontSize: 16,
                     fontWeight: '600',
                   }}>
-                  {appoinmentDetails?.doctorName ?? ''}
+                  {'Doctor Strange'}
                 </Text>
                 <Text
                   style={{

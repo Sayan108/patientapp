@@ -27,10 +27,11 @@ export const userDataSlice = createSlice({
       state: UserData,
       action: PayloadAction<IAppoinment>,
     ) => {
+      console.log({...action.payload});
       return {
         ...state,
         upcomingAppoinment: {
-          data: action.payload,
+          data: {...action.payload},
           loading: false,
           error: {},
         },

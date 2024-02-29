@@ -9,11 +9,14 @@ import {
 } from '../redux/silces/auth.silce';
 import {changehomeScreenTab} from '../redux/silces/application.slice';
 import {
+  appoinmentListSucess,
+  dateSlotSucess,
+  timeSlotSucess,
   upcomingAppoinmentFailure,
   upcomingAppoinmentRequested,
   upcomingAppoinmentSucess,
 } from '../redux/silces/userdata.slice';
-import {appointments} from '../redux/redux.constants';
+import {appointments, dateSlots, timeSlots} from '../redux/redux.constants';
 
 export interface sendOTPPayload {
   phoneNumber: string;
@@ -39,6 +42,12 @@ const useAuthService = () => {
     try {
       dispatch(authSuccess({}));
       dispatch(changehomeScreenTab(1));
+      dispatch(upcomingAppoinmentRequested());
+      dispatch(upcomingAppoinmentSucess(appointments[5]));
+      dispatch(appoinmentListSucess(appointments));
+      dispatch(dateSlotSucess(dateSlots));
+      dispatch(timeSlotSucess(timeSlots));
+
       navigation.navigate('home');
     } catch (error) {
       dispatch(authFailed(error));

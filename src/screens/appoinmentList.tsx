@@ -11,21 +11,10 @@ import Layout from '../components/layOut';
 import {colors} from '../styles';
 import AddAppoinmentButton from '../components/addAppoinmentButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {useDispatch, useSelector} from 'react-redux';
-import {appoinmentListRequested} from '../redux/silces/userdata.slice';
-import {RootState} from '../redux/silces';
-import {IAppoinment} from '../redux/redux.constants';
+
+import {IAppoinment, appointments} from '../redux/redux.constants';
 
 const AppoinmentList = (props: any) => {
-  const dispatch = useDispatch();
-
-  const appoinmentList =
-    useSelector((state: RootState) => state?.userData?.appoinmentList?.data) ??
-    [];
-  const fetchAllAppoinments = () => {
-    dispatch(appoinmentListRequested());
-  };
-
   const screenWidth = Dimensions.get('window').width;
   const screenHeight = Dimensions.get('window').height;
   const handleOpenPhoneApp = (phone: string) => {
@@ -40,9 +29,7 @@ const AppoinmentList = (props: any) => {
   const conditionalFunction = () => {
     setIndex(0);
   };
-  useEffect(() => {
-    fetchAllAppoinments();
-  }, []);
+  const appoinmentList = appointments;
 
   return (
     <Layout headerText="All appoinments" navigation={conditionalFunction}>
