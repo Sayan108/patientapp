@@ -1,14 +1,13 @@
 import {View, Text, Image} from 'react-native';
 import React, {useState} from 'react';
-import {Appbar, Button, List} from 'react-native-paper';
+import {Appbar, List} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors} from '../styles';
 import AppoinmentCard from './appoinmentCard';
 import AddAppoinmentButton from './addAppoinmentButton';
-import {logOut} from '../redux/silces/auth.silce';
+
 import {useDispatch} from 'react-redux';
 import LogoutDialoge from './logOutDialogue';
-// import { appoinmentListRequested } from '../redux/silces/userdata.slice';
 
 const HomePageComponent = (props: any) => {
   const {setIndex, navigation} = props;
