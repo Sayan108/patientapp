@@ -38,7 +38,7 @@ const PhoneInputScreen = ({navigation}: {navigation: any}) => {
         <Text style={style.loginPageTextSecondary}>
           An OTP will be sent to verify the mobile number
         </Text>
-        <View>
+        <View style={{marginTop: 10}}>
           <TextInput
             keyboardType="phone-pad"
             maxLength={10}
@@ -49,7 +49,7 @@ const PhoneInputScreen = ({navigation}: {navigation: any}) => {
             mode="outlined"
             activeOutlineColor={colors.primaryColor}
             onChangeText={handlePhoneNumberChange}
-            placeholder="0000000000"
+            placeholder="1234567890"
             placeholderTextColor="gray"></TextInput>
           <HelperText
             show={validNumber}

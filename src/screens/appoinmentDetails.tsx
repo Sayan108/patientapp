@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView, Pressable} from 'react-native';
 import Layout from '../components/layOut';
 import {colors} from '../styles';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {List} from 'react-native-paper';
+import CancelAppoinmentDialoge from '../components/cancelAppoinmentDialogue';
 
 interface Customer {
   name: string;
@@ -29,9 +30,16 @@ interface BookingDetailsProps {
   payment: Payment;
 }
 
-const AppoinmentDetails = ({navigation}: {navigation: any}) => {
+const AppoinmentDetails = ({
+  navigation,
+  route,
+}: {
+  navigation: any;
+  route: any;
+}) => {
   const [visible, setvisible] = useState<boolean>(false);
-  const [showLogout, setshowLogout] = useState<boolean>(false);
+  const [showCancelModal, setshowCancelModal] = useState<boolean>(false);
+  const {id} = route.params;
   const customer = {
     name: 'John Doe',
     email: 'john@example.com',
@@ -49,116 +57,126 @@ const AppoinmentDetails = ({navigation}: {navigation: any}) => {
   const handleNavigation = () => {
     navigation.navigate('home');
   };
+
   return (
     <Layout headerText="Booking details" navigation={handleNavigation}>
-      <ScrollView>
-        <View style={styles.container}>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              width: '100%',
-              //  backgroundColor: 'black',
-            }}>
-            <Text
+      {showCancelModal ? (
+        <CancelAppoinmentDialoge
+          visible={showCancelModal}
+          setVisible={setshowCancelModal}
+        />
+      ) : (
+        <ScrollView>
+          <View style={styles.container}>
+            <View
               style={{
-                ...styles.sectionHeading,
-                justifyContent: 'flex-start',
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                //  backgroundColor: 'black',
               }}>
-              Patient Details
-            </Text>
-            <Pressable
-              style={{marginLeft: '60%', justifyContent: 'flex-end'}}
-              onPress={() => {
-                setvisible(!visible);
-              }}>
-              <Icon name="dots-vertical" color={colors.textColor} size={30} />
-            </Pressable>
-            {visible ? (
-              <View
+              <Text
                 style={{
-                  position: 'absolute',
-                  top: 60, // Adjust as needed
-                  left: '35%',
-                  right: 0,
-                  backgroundColor: 'rgba(255,255 ,255 ,1)',
-                  zIndex: 10, // Ensure the menu is above other elements
-                  elevation: 400,
-                  width: '70%',
-                  borderRadius: 25,
-                  shadowColor: 'black',
+                  ...styles.sectionHeading,
+                  justifyContent: 'flex-start',
                 }}>
-                <List.Section>
-                  <List.Item
-                    title="Reschedule appoinment"
-                    titleStyle={{
-                      color: 'black', // Text color
-                    }}
-                    left={() => (
-                      <Icon
-                        style={{paddingLeft: 10}}
-                        name="calendar-arrow-right"
-                        size={35}
-                        color={colors.textColor}
-                      />
-                    )}
-                    onPress={() => {
-                      navigation.navigate('choosedateandtime');
-                      setvisible(!visible);
-                    }}
-                  />
-                  <List.Item
-                    title="Cancel appoinment"
-                    titleStyle={{
-                      color: 'black', // Text color
-                    }}
-                    left={() => (
-                      <Icon
-                        style={{paddingLeft: 10}}
-                        name="doctor"
-                        size={35}
-                        color={colors.textColor}
-                      />
-                    )}
-                    onPress={() => {
-                      navigation.navigate('aboutdoctor');
-                      setvisible(!visible);
-                    }}
-                  />
-                </List.Section>
-              </View>
-            ) : null}
-          </View>
+                Patient Details
+              </Text>
+              <Pressable
+                style={{marginLeft: '60%', justifyContent: 'flex-end'}}
+                onPress={() => {
+                  setvisible(!visible);
+                }}>
+                <Icon name="dots-vertical" color={colors.textColor} size={30} />
+              </Pressable>
+              {visible ? (
+                <View
+                  style={{
+                    position: 'absolute',
+                    top: 60, // Adjust as needed
+                    left: '35%',
+                    right: 0,
+                    backgroundColor: 'rgba(255,255 ,255 ,1)',
+                    zIndex: 10, // Ensure the menu is above other elements
+                    elevation: 400,
+                    width: '70%',
+                    borderRadius: 25,
+                    shadowColor: 'black',
+                  }}>
+                  <List.Section>
+                    <List.Item
+                      title="Reschedule appoinment"
+                      titleStyle={{
+                        color: 'black', // Text color
+                      }}
+                      left={() => (
+                        <Icon
+                          style={{paddingLeft: 10}}
+                          name="calendar-arrow-right"
+                          size={35}
+                          color={colors.textColor}
+                        />
+                      )}
+                      onPress={() => {
+                        navigation.navigate('choosedateandtime', {id: id});
+                        setvisible(!visible);
+                      }}
+                    />
+                    <List.Item
+                      title="Cancel appoinment"
+                      titleStyle={{
+                        color: 'black', // Text color
+                      }}
+                      left={() => (
+                        <Icon
+                          style={{paddingLeft: 10}}
+                          name="cancel"
+                          size={35}
+                          color={colors.textColor}
+                        />
+                      )}
+                      onPress={() => {
+                        setshowCancelModal(true);
+                        setvisible(!visible);
+                      }}
+                    />
+                  </List.Section>
+                </View>
+              ) : null}
+            </View>
 
-          <View style={styles.section}>
-            <Text style={styles.sectionDetails}>Name: {customer.name}</Text>
-            <Text style={styles.sectionDetails}>Email: {customer.email}</Text>
-            <Text style={styles.sectionDetails}>Phone: {customer.phone}</Text>
+            <View style={styles.section}>
+              <Text style={styles.sectionDetails}>Name: {customer.name}</Text>
+              <Text style={styles.sectionDetails}>Email: {customer.email}</Text>
+              <Text style={styles.sectionDetails}>Phone: {customer.phone}</Text>
+            </View>
+            <Text style={styles.sectionHeading}>Booking Details</Text>
+            <View style={styles.section}>
+              <Text style={styles.sectionDetails}>
+                Booking id: {product.name}
+              </Text>
+              <Text style={styles.sectionDetails}>Date: {product.name}</Text>
+              <Text style={styles.sectionDetails}>Time: ${product.price}</Text>
+            </View>
+            <Text style={styles.sectionHeading}>Payment Details</Text>
+            <View style={styles.section}>
+              <Text style={styles.sectionDetails}>
+                Payment id: {payment.id}
+              </Text>
+              <Text style={styles.sectionDetails}>
+                Payment Method: {payment.method}
+              </Text>
+              <Text style={styles.sectionDetails}>
+                Total Amount: {payment.total}
+              </Text>
+            </View>
+            <Text style={styles.sectionHeading}>Problem</Text>
+            <View style={styles.section}>
+              <Text style={styles.sectionDetails}>{problem.text}</Text>
+            </View>
           </View>
-          <Text style={styles.sectionHeading}>Booking Details</Text>
-          <View style={styles.section}>
-            <Text style={styles.sectionDetails}>
-              Booking id: {product.name}
-            </Text>
-            <Text style={styles.sectionDetails}>Date: {product.name}</Text>
-            <Text style={styles.sectionDetails}>Time: ${product.price}</Text>
-          </View>
-          <Text style={styles.sectionHeading}>Payment Details</Text>
-          <View style={styles.section}>
-            <Text style={styles.sectionDetails}>Payment id: {payment.id}</Text>
-            <Text style={styles.sectionDetails}>
-              Payment Method: {payment.method}
-            </Text>
-            <Text style={styles.sectionDetails}>
-              Total Amount: {payment.total}
-            </Text>
-          </View>
-          <Text style={styles.sectionHeading}>Problem</Text>
-          <View style={styles.section}>
-            <Text style={styles.sectionDetails}>{problem.text}</Text>
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
     </Layout>
   );
 };

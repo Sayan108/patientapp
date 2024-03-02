@@ -27,7 +27,9 @@ interface BookingDetailsProps {
   payment: Payment;
 }
 
-const BookingDetails = ({navigation}: {navigation: any}) => {
+const BookingDetails = ({navigation, route}: {navigation: any; route: any}) => {
+  const {id} = route.params;
+
   const customer = {
     name: 'John Doe',
     email: 'john@example.com',
@@ -40,7 +42,7 @@ const BookingDetails = ({navigation}: {navigation: any}) => {
   };
   const payment = {id: '1234567890', method: 'Credit Card', total: 1000};
   const handleNavigation = () => {
-    navigation.navigate('chooseclinic');
+    navigation.navigate(id === -1 ? 'chooseclinic' : 'chooseclinic', {id: id});
   };
   return (
     <Layout headerText="Booking details" navigation={handleNavigation}>
@@ -71,7 +73,7 @@ const BookingDetails = ({navigation}: {navigation: any}) => {
       <Button
         mode="contained"
         onPress={() => {
-          navigation.navigate('appoinmentsuccess');
+          navigation.navigate(id === -1 ? 'appoinmentsuccess' : 'home');
         }}
         style={styles.button}
         labelStyle={styles.buttonLabel}>

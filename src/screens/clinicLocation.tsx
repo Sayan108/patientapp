@@ -5,8 +5,9 @@ import {Button, RadioButton} from 'react-native-paper';
 import {ScrollView} from 'react-native';
 import {colors} from '../styles';
 
-const ClinicLocation = ({navigation}: {navigation: any}) => {
+const ClinicLocation = ({navigation, route}: {navigation: any; route: any}) => {
   const [checked, setChecked] = React.useState(1);
+  const {id} = route.params;
   const place = [
     {
       id: 1,
@@ -56,13 +57,15 @@ const ClinicLocation = ({navigation}: {navigation: any}) => {
     },
   ];
   const handleNavigation = () => {
-    navigation.navigate('choosedateandtime');
+    navigation.navigate(id === -1 ? 'choosedateandtime' : 'choosedateandtime', {
+      id: id,
+    });
   };
   return (
     <Layout headerText="Choose clinic" navigation={handleNavigation}>
       <ScrollView>
         {place.map((item: any, index: number) => (
-          <View style={styles.card}>
+          <View style={styles.card} key={index}>
             <View style={styles.textContainer}>
               <Text style={styles.addressHeader}>{item.address.lineOne}</Text>
               <Text style={styles.address}>{item.address.lineTwo}</Text>
@@ -83,7 +86,9 @@ const ClinicLocation = ({navigation}: {navigation: any}) => {
       <Button
         mode="contained"
         onPress={() => {
-          navigation.navigate('bookingdetails');
+          navigation.navigate(id === -1 ? 'bookingdetails' : 'bookingdetails', {
+            id: id,
+          });
         }}
         style={styles.button}
         labelStyle={styles.buttonLabel}>

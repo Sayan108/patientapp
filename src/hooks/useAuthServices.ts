@@ -48,7 +48,7 @@ const useAuthService = () => {
       dispatch(appoinmentListSucess(appointments));
       dispatch(dateSlotSucess(dateSlots));
       dispatch(timeSlotSucess(timeSlots));
-      console.log(value, 'this is the value');
+
       navigation.navigate('home');
     } catch (error) {
       dispatch(authFailed(error));

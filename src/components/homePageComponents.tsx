@@ -134,7 +134,7 @@ const HomePageComponent = (props: any) => {
           </View>
 
           <View style={{marginTop: 10, marginLeft: 10, height: '100%'}}>
-            <AppoinmentCard />
+            <AppoinmentCard navigation={navigation} />
           </View>
         </View>
       )}

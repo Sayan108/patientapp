@@ -1,25 +1,47 @@
-import {View, Text, Image, Touchable} from 'react-native';
-import {Button, TextInput} from 'react-native-paper';
-import React, {useState} from 'react';
+import {View, Text, Image, TextInput, StyleSheet} from 'react-native';
+import {Button} from 'react-native-paper';
+import React, {useRef, useState} from 'react';
 import {colors, style} from '../styles';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 import {RootState} from '../redux/silces';
-import {authRequested} from '../redux/silces/auth.silce';
+
 import useAuthService from '../hooks/useAuthServices';
+import Timer from '../components/otpTimer';
 
 const OTPInputScreen = ({navigation}: {navigation: any}) => {
   const {handleLogIn} = useAuthService();
-  const dispatch = useDispatch();
+  const timerValue = 60;
+  const length = 4;
   const phoneNumber = useSelector(
     (state: RootState) => state.auth.userDetails?.phoneNumber,
   );
-  const [OTP, setOTP] = useState<string>('');
-  const handleOTPChange = (text: string) => {
-    setOTP(text);
+
+  const inputRefs = useRef<TextInput[]>([]);
+  const [otp, setOtp] = useState<string[]>(Array(length).fill(''));
+
+  const handleChangeText = (text: string, index: number) => {
+    const newOtp = [...otp];
+    newOtp[index] = text;
+    setOtp(newOtp);
+
+    if (text !== '' && index < length - 1) {
+      inputRefs.current[index + 1]?.focus();
+    }
   };
 
+  const handleKeyPress = (event: any, index: number) => {
+    if (event.nativeEvent.key === 'Backspace' && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+      otp[index] = '';
+    }
+  };
   const handleLoginButtonClick = () => {
-    handleLogIn(OTP, navigation);
+    let finalOtp = '';
+    for (let i = 0; i < otp.length; i++) {
+      finalOtp = finalOtp + otp[i];
+    }
+
+    handleLogIn(finalOtp, navigation);
   };
   return (
     <View style={style.view}>
@@ -37,7 +59,7 @@ const OTPInputScreen = ({navigation}: {navigation: any}) => {
           {`We have sent you a verification code in your mobile no ${phoneNumber}`}
         </Text>
         <View>
-          <TextInput
+          {/* <TextInput
             keyboardType="phone-pad"
             maxLength={4}
             autoFocus
@@ -47,7 +69,25 @@ const OTPInputScreen = ({navigation}: {navigation: any}) => {
             activeOutlineColor={colors.primaryColor}
             onChangeText={handleOTPChange}
             placeholder="0000"
-            placeholderTextColor="gray"></TextInput>
+            placeholderTextColor="gray"></TextInput> */}
+          <View style={styles.container}>
+            {Array(length)
+              .fill(null)
+              .map((_, index) => (
+                <TextInput
+                  selectionColor={colors.primaryColor}
+                  autoFocus={index === 0}
+                  key={index}
+                  style={styles.input}
+                  keyboardType="numeric"
+                  maxLength={1}
+                  onChangeText={text => handleChangeText(text, index)}
+                  value={otp[index]}
+                  ref={ref => (inputRefs.current[index] = ref as TextInput)}
+                  onKeyPress={event => handleKeyPress(event, index)}
+                />
+              ))}
+          </View>
 
           <View style={{paddingTop: 10}}>
             <View style={{display: 'flex', flexDirection: 'row'}}>
@@ -58,17 +98,8 @@ const OTPInputScreen = ({navigation}: {navigation: any}) => {
                 }}>
                 Didn't recieve the code?
               </Text>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  justifyContent: 'space-between',
-                  color: colors.primaryColor,
-                }}
-                onPress={() => {
-                  navigation.navigate('phoneinput');
-                }}>
-                Resend
-              </Text>
+
+              <Timer initialSeconds={timerValue} navigation={navigation} />
             </View>
             <Button
               aria-disabled
@@ -92,5 +123,22 @@ const OTPInputScreen = ({navigation}: {navigation: any}) => {
     </View>
   );
 };
-
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  input: {
+    width: 40,
+    height: 45,
+    textAlign: 'center',
+    fontSize: 20,
+    borderRadius: 5,
+    margin: 5,
+    borderBottomColor: 'black',
+    borderBottomWidth: 1,
+    color: 'black',
+  },
+});
 export default OTPInputScreen;

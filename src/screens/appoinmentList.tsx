@@ -3,7 +3,6 @@ import {
   Text,
   ScrollView,
   StyleSheet,
-  Dimensions,
   Linking,
   Pressable,
 } from 'react-native';
@@ -40,8 +39,11 @@ const AppoinmentList = (props: any) => {
         {data &&
           data?.map((item: IAppoinment, index: number) => (
             <Pressable
+              key={item.appoinmentId}
               onPress={() => {
-                navigation.navigate('appoinmentdetails');
+                navigation.navigate('appoinmentdetails', {
+                  id: parseInt(item.appoinmentId),
+                });
               }}>
               <View style={styles.card} key={item?.appoinmentId}>
                 <View style={styles.textContainer}>

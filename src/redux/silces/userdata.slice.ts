@@ -27,7 +27,6 @@ export const userDataSlice = createSlice({
       state: UserData,
       action: PayloadAction<IAppoinment>,
     ) => {
-      console.log({...action.payload});
       return {
         ...state,
         upcomingAppoinment: {
@@ -65,7 +64,6 @@ export const userDataSlice = createSlice({
       state: UserData,
       action: PayloadAction<IAppoinment[]>,
     ) => {
-      console.log(action.payload);
       return {
         ...state,
         appoinmentList: {

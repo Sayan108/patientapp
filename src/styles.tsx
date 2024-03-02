@@ -44,6 +44,7 @@ export const style = StyleSheet.create({
     fontSize: 14,
     fontWeight: '300',
     //fontFamily: 'roboto',
+    lineHeight: 25,
   },
   loginPageImage: {
     width: 156,

@@ -13,7 +13,6 @@ export const authSlice = createSlice({
       };
     },
     otpSuccess: (state: IAuthState, action: PayloadAction<any>) => {
-      console.log(action.payload);
       return {
         ...state,
         userDetails: {
