@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors} from '../styles';
 import AppoinmentCard from './appoinmentCard';
 import AddAppoinmentButton from './addAppoinmentButton';
+import {NativeModules} from 'react-native';
 
 import {useDispatch} from 'react-redux';
 import LogoutDialoge from './logOutDialogue';
@@ -134,12 +135,12 @@ const HomePageComponent = (props: any) => {
             </Text>
           </View>
 
-          <View style={{marginTop: 10, marginLeft: 10}}>
+          <View style={{marginTop: 10, marginLeft: 10, height: '100%'}}>
             <AppoinmentCard />
           </View>
         </View>
       )}
-      <AddAppoinmentButton navigation={navigation} />
+      {!showLogout ? <AddAppoinmentButton navigation={navigation} /> : null}
     </View>
   );
 };

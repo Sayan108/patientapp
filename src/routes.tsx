@@ -15,7 +15,7 @@ import AppoinmentList from './screens/appoinmentList';
 import AppointmenSuccess from './screens/appoinmentSuccess';
 import MyProfile from './screens/myProfile';
 import AboutDoctor from './screens/aboutDoctor';
-
+import AppoinmentDetails from './screens/appoinmentDetails';
 const Routes = () => {
   const {isAuthenticated} = useSelector((state: RootState) => state.auth);
   const Stack = createNativeStackNavigator();
@@ -44,18 +44,22 @@ const Routes = () => {
           <Stack.Screen
             name="choosedateandtime"
             component={isAuthenticated ? ChooseDateandTime : PhoneInputScreen}
+            initialParams={{id: -1}}
           />
           <Stack.Screen
             name="chooseclinic"
             component={isAuthenticated ? ClinicLocation : PhoneInputScreen}
+            initialParams={{id: -1}}
           />
           <Stack.Screen
-            name="appointmentdetails"
+            name="bookingdetails"
             component={isAuthenticated ? BookingDetails : PhoneInputScreen}
+            initialParams={{id: -1}}
           />
           <Stack.Screen
             name="appoinmentsuccess"
             component={isAuthenticated ? AppointmenSuccess : PhoneInputScreen}
+            initialParams={{id: -1}}
           />
           <Stack.Screen
             name="myprofile"
@@ -64,6 +68,10 @@ const Routes = () => {
           <Stack.Screen
             name="aboutdoctor"
             component={isAuthenticated ? AboutDoctor : PhoneInputScreen}
+          />
+          <Stack.Screen
+            name="appoinmentdetails"
+            component={isAuthenticated ? AppoinmentDetails : PhoneInputScreen}
           />
         </Stack.Group>
       </Stack.Navigator>

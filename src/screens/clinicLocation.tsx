@@ -83,7 +83,7 @@ const ClinicLocation = ({navigation}: {navigation: any}) => {
       <Button
         mode="contained"
         onPress={() => {
-          navigation.navigate('appointmentdetails');
+          navigation.navigate('bookingdetails');
         }}
         style={styles.button}
         labelStyle={styles.buttonLabel}>

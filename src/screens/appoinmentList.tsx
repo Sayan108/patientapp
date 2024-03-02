@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Dimensions,
   Linking,
+  Pressable,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import Layout from '../components/layOut';
@@ -36,74 +37,79 @@ const AppoinmentList = (props: any) => {
       <ScrollView>
         {appoinmentList &&
           appoinmentList?.map((item: IAppoinment, index: number) => (
-            <View style={styles.card} key={item?.appoinmentId}>
-              <View style={styles.textContainer}>
-                <Text style={styles.addressHeader}>{item.doctorName}</Text>
-                <Text style={styles.address}>{item.patientName}</Text>
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    paddingTop: 10,
-                  }}>
-                  <Icon
-                    name="clock-outline"
-                    color="black"
+            <Pressable
+              onPress={() => {
+                navigation.navigate('appoinmentdetails');
+              }}>
+              <View style={styles.card} key={item?.appoinmentId}>
+                <View style={styles.textContainer}>
+                  <Text style={styles.addressHeader}>{item.doctorName}</Text>
+                  <Text style={styles.address}>{item.patientName}</Text>
+                  <View
                     style={{
-                      color: 'black',
-                      justifyContent: 'space-between',
-                      marginRight: 5,
-                    }}
-                    size={25}
-                  />
-                  <Text style={styles.address}>{item.appoinmentTime}</Text>
-                  <Icon
-                    name="calendar-blank"
-                    color="black"
+                      display: 'flex',
+                      flexDirection: 'row',
+                      paddingTop: 10,
+                    }}>
+                    <Icon
+                      name="clock-outline"
+                      color="black"
+                      style={{
+                        color: 'black',
+                        justifyContent: 'space-between',
+                        marginRight: 5,
+                      }}
+                      size={25}
+                    />
+                    <Text style={styles.address}>{item.appoinmentTime}</Text>
+                    <Icon
+                      name="calendar-blank"
+                      color="black"
+                      style={{
+                        color: 'black',
+                        justifyContent: 'space-between',
+                        marginLeft: 15,
+                        marginRight: 5,
+                      }}
+                      size={25}
+                    />
+                    <Text style={styles.address}>{item.appoinmentDate}</Text>
+                  </View>
+
+                  <View
                     style={{
-                      color: 'black',
-                      justifyContent: 'space-between',
-                      marginLeft: 15,
-                      marginRight: 5,
-                    }}
-                    size={25}
-                  />
-                  <Text style={styles.address}>{item.appoinmentDate}</Text>
+                      display: 'flex',
+                      flexDirection: 'row',
+                      paddingTop: 10,
+                    }}>
+                    <Icon
+                      name="map-marker-outline"
+                      color="black"
+                      style={{
+                        color: 'black',
+                        justifyContent: 'space-between',
+                      }}
+                      size={25}
+                    />
+                    <Text style={styles.address}>{item.clinicAddress}</Text>
+                  </View>
                 </View>
 
-                <View
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    paddingTop: 10,
-                  }}>
-                  <Icon
-                    name="map-marker-outline"
-                    color="black"
-                    style={{
-                      color: 'black',
-                      justifyContent: 'space-between',
-                    }}
-                    size={25}
-                  />
-                  <Text style={styles.address}>{item.clinicAddress}</Text>
-                </View>
+                <Icon
+                  onPress={() => handleOpenPhoneApp(item.clinicPhone)}
+                  name="phone"
+                  color={colors.primaryColor}
+                  size={25}
+                  style={{marginRight: 20}}
+                />
+                <Icon
+                  onPress={() => handleOpenWhatsApp(item.clinicPhone)}
+                  name="whatsapp"
+                  color={'green'}
+                  size={25}
+                />
               </View>
-
-              <Icon
-                onPress={() => handleOpenPhoneApp(item.clinicPhone)}
-                name="phone"
-                color={colors.primaryColor}
-                size={25}
-                style={{marginRight: 20}}
-              />
-              <Icon
-                onPress={() => handleOpenWhatsApp(item.clinicPhone)}
-                name="whatsapp"
-                color={'green'}
-                size={25}
-              />
-            </View>
+            </Pressable>
           ))}
       </ScrollView>
       <AddAppoinmentButton navigation={navigation} />
