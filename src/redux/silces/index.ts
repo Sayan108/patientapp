@@ -5,8 +5,8 @@ import {applicationReducer} from './application.slice';
 import {userDataReducer} from './userdata.slice';
 export type RootState = {
   auth: IAuthState;
-  appliction: IApplicationStates;
-  userData: UserData;
+  application: IApplicationStates;
+  userdata: UserData;
 };
 
 export const rootReducer = combineReducers({

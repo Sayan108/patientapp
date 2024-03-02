@@ -1,4 +1,4 @@
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   authFailed,
   authRequested,
@@ -16,6 +16,7 @@ import {
   upcomingAppoinmentRequested,
   upcomingAppoinmentSucess,
 } from '../redux/silces/userdata.slice';
+import {RootState} from '../redux/silces';
 import {appointments, dateSlots, timeSlots} from '../redux/redux.constants';
 
 export interface sendOTPPayload {
@@ -24,7 +25,7 @@ export interface sendOTPPayload {
 }
 const useAuthService = () => {
   const dispatch = useDispatch();
-
+  const value = useSelector((state: RootState) => state.userdata);
   const handleSendOTP = async (payload: sendOTPPayload, navigation: any) => {
     dispatch(otpRequested());
     try {
@@ -42,12 +43,12 @@ const useAuthService = () => {
     try {
       dispatch(authSuccess({}));
       dispatch(changehomeScreenTab(1));
-      dispatch(upcomingAppoinmentRequested());
+
       dispatch(upcomingAppoinmentSucess(appointments[5]));
       dispatch(appoinmentListSucess(appointments));
       dispatch(dateSlotSucess(dateSlots));
       dispatch(timeSlotSucess(timeSlots));
-
+      console.log(value, 'this is the value');
       navigation.navigate('home');
     } catch (error) {
       dispatch(authFailed(error));

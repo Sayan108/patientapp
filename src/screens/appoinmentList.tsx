@@ -7,17 +7,20 @@ import {
   Linking,
   Pressable,
 } from 'react-native';
-import React, {useEffect} from 'react';
+import React from 'react';
 import Layout from '../components/layOut';
 import {colors} from '../styles';
 import AddAppoinmentButton from '../components/addAppoinmentButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {IAppoinment, appointments} from '../redux/redux.constants';
+import {IAppoinment} from '../redux/redux.constants';
+import {useSelector} from 'react-redux';
+import {RootState} from '../redux/silces';
 
 const AppoinmentList = (props: any) => {
-  const screenWidth = Dimensions.get('window').width;
-  const screenHeight = Dimensions.get('window').height;
+  const {data} = useSelector(
+    (state: RootState) => state.userdata.appoinmentList,
+  );
   const handleOpenPhoneApp = (phone: string) => {
     Linking.openURL(`tel:${phone}`);
   };
@@ -30,13 +33,12 @@ const AppoinmentList = (props: any) => {
   const conditionalFunction = () => {
     setIndex(0);
   };
-  const appoinmentList = appointments;
 
   return (
     <Layout headerText="All appoinments" navigation={conditionalFunction}>
       <ScrollView>
-        {appoinmentList &&
-          appoinmentList?.map((item: IAppoinment, index: number) => (
+        {data &&
+          data?.map((item: IAppoinment, index: number) => (
             <Pressable
               onPress={() => {
                 navigation.navigate('appoinmentdetails');

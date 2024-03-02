@@ -5,14 +5,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors} from '../styles';
 import AppoinmentCard from './appoinmentCard';
 import AddAppoinmentButton from './addAppoinmentButton';
-import {NativeModules} from 'react-native';
 
-import {useDispatch} from 'react-redux';
 import LogoutDialoge from './logOutDialogue';
 
 const HomePageComponent = (props: any) => {
   const {setIndex, navigation} = props;
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const [visible, setvisible] = useState<boolean>(false);
   const [showLogout, setshowLogout] = useState<boolean>(false);
