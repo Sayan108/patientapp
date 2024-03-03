@@ -90,6 +90,11 @@ export interface UserData {
   appoinmentList: {data: IAppoinment[]; loading: boolean; error: any};
   dateSlots: {data: IDateSlots[]; loading: boolean; error: any};
   timeSlots: {data: ITimeslots[]; loading: boolean; error: any};
+  currentAppoinmentDetails: {
+    data: IAppoinment | null;
+    loading: boolean;
+    error: any;
+  };
 }
 
 export const UserDataInitialState: UserData = {
@@ -101,6 +106,7 @@ export const UserDataInitialState: UserData = {
   appoinmentList: {data: [], loading: false, error: null},
   dateSlots: {data: [], loading: false, error: null},
   timeSlots: {data: [], loading: false, error: null},
+  currentAppoinmentDetails: {data: null, loading: false, error: null},
 };
 
 export const appointments: IAppoinment[] = [

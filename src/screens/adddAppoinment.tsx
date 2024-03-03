@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
-import {Appbar, TextInput, Button, Text} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {StyleSheet, View} from 'react-native';
+import {TextInput, Button, Text, RadioButton} from 'react-native-paper';
+
 import HelperText from '../components/helperText';
 import {colors} from '../styles';
 import Layout from '../components/layOut';
 
 const AddAppointment = ({navigation}: {navigation: any}) => {
   const [appointmentDetails, setAppointmentDetails] = useState<any>({});
+  const [showDropDown, setshowDropDown] = useState(false);
   const handleNavigation = () => {
     navigation.navigate('home');
   };
@@ -42,7 +43,7 @@ const AddAppointment = ({navigation}: {navigation: any}) => {
           setAppointmentDetails({...appointmentDetails, age: text});
         }}
         style={styles.input}
-        placeholder="69"
+        placeholder="28"
         placeholderTextColor="gray"
         keyboardType="numeric"
       />
@@ -52,18 +53,69 @@ const AddAppointment = ({navigation}: {navigation: any}) => {
         show={appointmentDetails?.age?.length === 0}
       />
       <TextInput
+        caretHidden={true}
+        cursorColor="white"
+        onPressIn={() => {
+          setshowDropDown(true);
+        }}
         activeOutlineColor={colors.primaryColor}
-        maxLength={15}
+        //  maxLength={15}
         value={appointmentDetails?.gender}
         label="Gender"
         mode="outlined"
-        onChangeText={(text: string) => {
-          setAppointmentDetails({...appointmentDetails, gender: text});
-        }}
         style={styles.input}
-        placeholder="Male"
+        placeholder="Choose gender"
         placeholderTextColor="gray"
       />
+      {showDropDown ? (
+        <View
+          style={{
+            height: '20%',
+            width: '35%',
+            elevation: 100,
+            borderColor: 'black',
+
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            alignItems: 'center',
+            paddingHorizontal: 10,
+          }}>
+          <RadioButton.Group
+            onValueChange={newValue => {
+              setAppointmentDetails({...appointmentDetails, gender: newValue});
+              setshowDropDown(false);
+            }}
+            value={appointmentDetails.gender}>
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <RadioButton value="Male" color={colors.primaryColor} />
+              <Text style={{marginLeft: 8}}>Male</Text>
+            </View>
+
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <RadioButton value="Female" color={colors.primaryColor} />
+              <Text style={{marginLeft: 8}}>Female</Text>
+            </View>
+
+            <View
+              style={{
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <RadioButton value="Non binary" color={colors.primaryColor} />
+              <Text style={{marginLeft: 8}}>Non binary</Text>
+            </View>
+          </RadioButton.Group>
+        </View>
+      ) : null}
+
       <HelperText
         text="This field is required"
         type="error"
@@ -98,7 +150,7 @@ const AddAppointment = ({navigation}: {navigation: any}) => {
           setAppointmentDetails({...appointmentDetails, problem: text});
         }}
         style={{...styles.input, height: 100}}
-        placeholder="Lorem ipsum lorem ipsum lorem ipsum"
+        placeholder="Describe your problem briefly"
         placeholderTextColor="gray"
         multiline
       />

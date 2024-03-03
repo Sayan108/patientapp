@@ -1,5 +1,6 @@
 import {all} from 'redux-saga/effects';
 import {
+  watchFetchAppoinmentDetails,
   watchFetchAppoinmentList,
   watchFetchDateSlots,
   watchFetchTimeSlotsBasedOnDate,
@@ -11,5 +12,6 @@ export default function* rootSaga() {
     watchFetchDateSlots(),
     watchFetchTimeSlotsBasedOnDate(),
     watchFetchUpcomingAppoinment(),
+    watchFetchAppoinmentDetails(),
   ]);
 }

@@ -6,29 +6,8 @@ import {colors} from '../styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {List} from 'react-native-paper';
 import CancelAppoinmentDialoge from '../components/cancelAppoinmentDialogue';
-
-interface Customer {
-  name: string;
-  email: string;
-  phone: string;
-}
-
-interface Product {
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-interface Payment {
-  method: string;
-  total: number;
-}
-
-interface BookingDetailsProps {
-  customer: Customer;
-  product: Product;
-  payment: Payment;
-}
+import {useSelector} from 'react-redux';
+import {RootState} from '../redux';
 
 const AppoinmentDetails = ({
   navigation,
@@ -40,24 +19,13 @@ const AppoinmentDetails = ({
   const [visible, setvisible] = useState<boolean>(false);
   const [showCancelModal, setshowCancelModal] = useState<boolean>(false);
   const {id} = route.params;
-  const customer = {
-    name: 'John Doe',
-    email: 'john@example.com',
-    phone: '123-456-7890',
-  };
-  const product = {
-    name: '1234567890',
-    price: '12/12/2024',
-    quantity: '12.12 PM',
-  };
-  const payment = {id: '1234567890', method: 'Credit Card', total: 1000};
-  const problem = {
-    text: ' Lorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsumLorem ipsum lorem ipsum',
-  };
+
   const handleNavigation = () => {
     navigation.navigate('home');
   };
-
+  const {data} = useSelector(
+    (state: RootState) => state.userdata.currentAppoinmentDetails,
+  );
   return (
     <Layout headerText="Booking details" navigation={handleNavigation}>
       {showCancelModal ? (
@@ -83,7 +51,7 @@ const AppoinmentDetails = ({
                 Patient Details
               </Text>
               <Pressable
-                style={{marginLeft: '60%', justifyContent: 'flex-end'}}
+                style={{marginLeft: '55%', justifyContent: 'flex-end'}}
                 onPress={() => {
                   setvisible(!visible);
                 }}>
@@ -94,18 +62,18 @@ const AppoinmentDetails = ({
                   style={{
                     position: 'absolute',
                     top: 60, // Adjust as needed
-                    left: '35%',
+                    left: '50%',
                     right: 0,
                     backgroundColor: 'rgba(255,255 ,255 ,1)',
                     zIndex: 10, // Ensure the menu is above other elements
                     elevation: 400,
-                    width: '70%',
+                    width: '50%',
                     borderRadius: 25,
                     shadowColor: 'black',
                   }}>
                   <List.Section>
                     <List.Item
-                      title="Reschedule appoinment"
+                      title="Reschedule"
                       titleStyle={{
                         color: 'black', // Text color
                       }}
@@ -123,7 +91,7 @@ const AppoinmentDetails = ({
                       }}
                     />
                     <List.Item
-                      title="Cancel appoinment"
+                      title="Cancel"
                       titleStyle={{
                         color: 'black', // Text color
                       }}
@@ -146,33 +114,41 @@ const AppoinmentDetails = ({
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionDetails}>Name: {customer.name}</Text>
-              <Text style={styles.sectionDetails}>Email: {customer.email}</Text>
-              <Text style={styles.sectionDetails}>Phone: {customer.phone}</Text>
+              <Text style={styles.sectionDetails}>
+                Name: {data?.patientName}
+              </Text>
+              {/* <Text style={styles.sectionDetails}>Email: {data.email}</Text> */}
+              <Text style={styles.sectionDetails}>
+                Phone: {data?.clinicPhone}
+              </Text>
             </View>
             <Text style={styles.sectionHeading}>Booking Details</Text>
             <View style={styles.section}>
               <Text style={styles.sectionDetails}>
-                Booking id: {product.name}
+                Booking id: {data?.appoinmentId}
               </Text>
-              <Text style={styles.sectionDetails}>Date: {product.name}</Text>
-              <Text style={styles.sectionDetails}>Time: ${product.price}</Text>
+              <Text style={styles.sectionDetails}>
+                Date: {data?.appoinmentDate}
+              </Text>
+              <Text style={styles.sectionDetails}>
+                Time: {data?.appoinmentTime}
+              </Text>
             </View>
             <Text style={styles.sectionHeading}>Payment Details</Text>
             <View style={styles.section}>
               <Text style={styles.sectionDetails}>
-                Payment id: {payment.id}
+                Payment id: {data?.paymentDetails?.paymentId}
               </Text>
               <Text style={styles.sectionDetails}>
-                Payment Method: {payment.method}
+                Payment Method: {data?.paymentDetails?.paymentType}
               </Text>
               <Text style={styles.sectionDetails}>
-                Total Amount: {payment.total}
+                Total Amount: {data?.paymentDetails?.ammount}
               </Text>
             </View>
             <Text style={styles.sectionHeading}>Problem</Text>
             <View style={styles.section}>
-              <Text style={styles.sectionDetails}>{problem.text}</Text>
+              <Text style={styles.sectionDetails}>{data?.problem}</Text>
             </View>
           </View>
         </ScrollView>

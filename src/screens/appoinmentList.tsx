@@ -13,10 +13,12 @@ import AddAppoinmentButton from '../components/addAppoinmentButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {IAppoinment} from '../redux/redux.constants';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {RootState} from '../redux';
+import {getAppoinmentDetailsRequested} from '../redux/silces/userdata.slice';
 
 const AppoinmentList = (props: any) => {
+  const dispatch = useDispatch();
   const {data} = useSelector(
     (state: RootState) => state.userdata.appoinmentList,
   );
@@ -41,6 +43,7 @@ const AppoinmentList = (props: any) => {
             <Pressable
               key={item.appoinmentId}
               onPress={() => {
+                dispatch(getAppoinmentDetailsRequested(index));
                 navigation.navigate('appoinmentdetails', {
                   id: parseInt(item.appoinmentId),
                 });

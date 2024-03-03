@@ -147,6 +147,47 @@ export const userDataSlice = createSlice({
       };
     },
 
+    getAppoinmentDetailsRequested: (
+      state: UserData,
+      action: PayloadAction<number>,
+    ) => {
+      return {
+        ...state,
+        currentAppoinmentDetails: {
+          ...state.currentAppoinmentDetails,
+          loading: true,
+        },
+      };
+    },
+
+    getAppoinmentDetailsSuccess: (
+      state: UserData,
+      action: PayloadAction<IAppoinment>,
+    ) => {
+      return {
+        ...state,
+        currentAppoinmentDetails: {
+          ...state.currentAppoinmentDetails,
+          loading: false,
+          data: action.payload,
+        },
+      };
+    },
+
+    getAppoinmentDetailsFailure: (
+      state: UserData,
+      action: PayloadAction<any>,
+    ) => {
+      return {
+        ...state,
+        currentAppoinmentDetails: {
+          ...state.currentAppoinmentDetails,
+          loading: false,
+          error: action.payload,
+        },
+      };
+    },
+
     clearUserData: (state: UserData) => {
       return {
         ...UserDataInitialState,
@@ -168,6 +209,9 @@ export const {
   dateSlotRequested,
   dateSlotSucess,
   clearUserData,
+  getAppoinmentDetailsSuccess,
+  getAppoinmentDetailsRequested,
+  getAppoinmentDetailsFailure,
 } = userDataSlice.actions;
 
 export const userDataReducer = userDataSlice.reducer;
