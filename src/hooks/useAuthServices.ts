@@ -9,12 +9,16 @@ import {
 } from '../redux/silces/auth.silce';
 import {changehomeScreenTab} from '../redux/silces/application.slice';
 import {
+  appoinmentListRequested,
   appoinmentListSucess,
+  dateSlotRequested,
   dateSlotSucess,
+  timeSlotRequested,
   timeSlotSucess,
+  upcomingAppoinmentRequested,
   upcomingAppoinmentSucess,
 } from '../redux/silces/userdata.slice';
-import {RootState} from '../redux/silces';
+import {RootState} from '../redux';
 import {appointments, dateSlots, timeSlots} from '../redux/redux.constants';
 
 export interface sendOTPPayload {
@@ -40,12 +44,12 @@ const useAuthService = () => {
     dispatch(authRequested());
     try {
       dispatch(authSuccess({}));
-      dispatch(changehomeScreenTab(1));
+      //r dispatch(changehomeScreenTab(1));
 
-      dispatch(upcomingAppoinmentSucess(appointments[5]));
-      dispatch(appoinmentListSucess(appointments));
-      dispatch(dateSlotSucess(dateSlots));
-      dispatch(timeSlotSucess(timeSlots));
+      dispatch(upcomingAppoinmentRequested());
+      dispatch(appoinmentListRequested());
+      dispatch(dateSlotRequested());
+      dispatch(timeSlotRequested());
 
       navigation.navigate('home');
     } catch (error) {

@@ -12,17 +12,20 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import logger from 'redux-logger';
 import persistReducer from 'redux-persist/es/persistReducer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import logger from 'redux-logger';
+import rootSaga from './sagas/rootSaga';
 
 const persistConfig = {
-  key: 'doctorsApp',
+  key: 'patientApp',
   storage: AsyncStorage,
 };
 
+const sagamiddleware = createSagaMiddleware();
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-// const sagaMiddleware = createSagaMiddleware();
+
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: getDefaultMiddleware =>
@@ -30,10 +33,10 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }), //.concat(logger),
-  // other options e.g middleware, go here
+    }).concat(logger, sagamiddleware),
 });
 
-// sagaMiddleware.run(rootSaga);
+sagamiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
+export type RootState = ReturnType<typeof store.getState>;

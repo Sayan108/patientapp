@@ -6,9 +6,12 @@ import {colors, style} from '../styles';
 import useAuthService, {sendOTPPayload} from '../hooks/useAuthServices';
 import {phoneNumberRegex} from '../regex.config';
 import HelperText from '../components/helperText';
+import {useSelector} from 'react-redux';
+import {RootState} from '../redux';
 
 const PhoneInputScreen = ({navigation}: {navigation: any}) => {
   const {handleSendOTP} = useAuthService();
+  const userData = useSelector((state: RootState) => state.userdata);
   const [phoneNumber, setphoneNumber] = useState<string>('');
   const [validNumber, setvalidNumber] = useState<boolean>(false);
   const handlePhoneNumberChange = (text: string) => {

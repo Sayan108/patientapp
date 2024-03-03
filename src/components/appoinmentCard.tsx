@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {colors} from '../styles';
 import {useSelector} from 'react-redux';
-import {RootState} from '../redux/silces';
+import {RootState} from '../redux';
 
 const AppoinmentCard = ({navigation}: {navigation: any}) => {
   const appoinmentDetails = useSelector(

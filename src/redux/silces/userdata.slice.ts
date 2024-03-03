@@ -67,9 +67,9 @@ export const userDataSlice = createSlice({
       return {
         ...state,
         appoinmentList: {
-          data: [...action.payload],
+          ...state.appoinmentList,
+          data: action.payload,
           loading: false,
-          error: {},
         },
       };
     },
@@ -146,6 +146,12 @@ export const userDataSlice = createSlice({
         },
       };
     },
+
+    clearUserData: (state: UserData) => {
+      return {
+        ...UserDataInitialState,
+      };
+    },
   },
 });
 export const {
@@ -161,6 +167,7 @@ export const {
   dateSlotFailure,
   dateSlotRequested,
   dateSlotSucess,
+  clearUserData,
 } = userDataSlice.actions;
 
 export const userDataReducer = userDataSlice.reducer;

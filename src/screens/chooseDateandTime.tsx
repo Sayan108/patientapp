@@ -1,12 +1,12 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
-import ChipsGrid from '../components/gridRadioButtons';
-import {Appbar, Button} from 'react-native-paper';
-import {colors} from '../styles';
-
-import Layout from '../components/layOut';
 import {useSelector} from 'react-redux';
-import {RootState} from '../redux/silces';
+import {Button} from 'react-native-paper';
+
+import ChipsGrid from '../components/gridRadioButtons';
+import {colors} from '../styles';
+import Layout from '../components/layOut';
+import {RootState} from '../redux';
 
 const ChooseDateandTime = ({
   navigation,

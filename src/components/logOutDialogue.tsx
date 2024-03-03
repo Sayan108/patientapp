@@ -1,9 +1,11 @@
 import * as React from 'react';
 import {View} from 'react-native';
 import {Button, Dialog, Portal, PaperProvider, Text} from 'react-native-paper';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {logOut} from '../redux/silces/auth.silce';
 import {colors} from '../styles';
+import {clearUserData} from '../redux/silces/userdata.slice';
+import {RootState} from '../redux';
 interface ILogInDialogeProps {
   visible: boolean;
   setVisible: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,7 +14,7 @@ interface ILogInDialogeProps {
 const LogoutDialoge = (props: ILogInDialogeProps) => {
   const dispatch = useDispatch();
   const {visible, setVisible} = props;
-
+  const userData = useSelector((state: RootState) => state.userdata);
   const hideDialog = () => setVisible(false);
 
   return (
@@ -43,6 +45,7 @@ const LogoutDialoge = (props: ILogInDialogeProps) => {
                 style={{backgroundColor: colors.primaryColor}}
                 onPress={() => {
                   dispatch(logOut());
+                  dispatch(clearUserData());
                 }}>
                 <Text
                   style={{

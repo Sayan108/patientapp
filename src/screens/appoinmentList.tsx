@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {IAppoinment} from '../redux/redux.constants';
 import {useSelector} from 'react-redux';
-import {RootState} from '../redux/silces';
+import {RootState} from '../redux';
 
 const AppoinmentList = (props: any) => {
   const {data} = useSelector(

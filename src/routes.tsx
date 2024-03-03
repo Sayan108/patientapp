@@ -4,7 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import PhoneInputScreen from './screens/phoneInputScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useSelector} from 'react-redux';
-import {RootState} from './redux/silces';
+import {RootState} from './redux';
 import OTPInputScreen from './screens/otpScreen';
 import HomeScreen from './screens/homeScreen';
 import AddAppoinment from './screens/adddAppoinment';
