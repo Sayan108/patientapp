@@ -1,6 +1,6 @@
 import {type PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {IAuthState, IAuthStateInitialState} from '../redux.constants';
-// Redux Toolkit slice
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState: IAuthStateInitialState,
@@ -43,7 +43,6 @@ export const authSlice = createSlice({
         ...state,
         isAuthenticated: true,
         isLoading: false,
-        // userDetails: action.payload,
       };
     },
     authFailed: (state: IAuthState, action: PayloadAction<any>) => {

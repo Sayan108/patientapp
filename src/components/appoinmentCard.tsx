@@ -1,6 +1,7 @@
 import {View, Text, Pressable} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import {colors} from '../styles';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/silces';

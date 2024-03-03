@@ -12,8 +12,6 @@ import {
   appoinmentListSucess,
   dateSlotSucess,
   timeSlotSucess,
-  upcomingAppoinmentFailure,
-  upcomingAppoinmentRequested,
   upcomingAppoinmentSucess,
 } from '../redux/silces/userdata.slice';
 import {RootState} from '../redux/silces';

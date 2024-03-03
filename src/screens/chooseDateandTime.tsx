@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import ChipsGrid from '../components/gridRadioButtons';
 import {Appbar, Button} from 'react-native-paper';
 import {colors} from '../styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import Layout from '../components/layOut';
 import {useSelector} from 'react-redux';
 import {RootState} from '../redux/silces';
