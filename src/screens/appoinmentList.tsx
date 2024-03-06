@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Linking,
   Pressable,
+  PixelRatio,
 } from 'react-native';
 import React from 'react';
 import Layout from '../components/layOut';
@@ -66,19 +67,26 @@ const AppoinmentList = (props: any) => {
                         justifyContent: 'space-between',
                         marginRight: 5,
                       }}
-                      size={25}
+                      size={PixelRatio.getPixelSizeForLayoutSize(15)}
                     />
                     <Text style={styles.address}>{item.appoinmentTime}</Text>
+                  </View>
+                  <View
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      paddingTop: 10,
+                    }}>
                     <Icon
                       name="calendar-blank"
                       color="black"
                       style={{
                         color: 'black',
                         justifyContent: 'space-between',
-                        marginLeft: 15,
+
                         marginRight: 5,
                       }}
-                      size={25}
+                      size={PixelRatio.getPixelSizeForLayoutSize(15)}
                     />
                     <Text style={styles.address}>{item.appoinmentDate}</Text>
                   </View>
@@ -96,7 +104,7 @@ const AppoinmentList = (props: any) => {
                         color: 'black',
                         justifyContent: 'space-between',
                       }}
-                      size={25}
+                      size={PixelRatio.getPixelSizeForLayoutSize(15)}
                     />
                     <Text style={styles.address}>{item.clinicAddress}</Text>
                   </View>
@@ -106,14 +114,14 @@ const AppoinmentList = (props: any) => {
                   onPress={() => handleOpenPhoneApp(item.clinicPhone)}
                   name="phone"
                   color={colors.primaryColor}
-                  size={25}
+                  size={PixelRatio.getPixelSizeForLayoutSize(15)}
                   style={{marginRight: 20}}
                 />
                 <Icon
                   onPress={() => handleOpenWhatsApp(item.clinicPhone)}
                   name="whatsapp"
                   color={'green'}
-                  size={25}
+                  size={PixelRatio.getPixelSizeForLayoutSize(15)}
                 />
               </View>
             </Pressable>

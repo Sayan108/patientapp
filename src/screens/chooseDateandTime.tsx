@@ -1,12 +1,13 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Button} from 'react-native-paper';
 
 import ChipsGrid from '../components/gridRadioButtons';
 import {colors} from '../styles';
 import Layout from '../components/layOut';
 import {RootState} from '../redux';
+import {updateAppoinmentForm} from '../redux/silces/userdata.slice';
 
 const ChooseDateandTime = ({
   navigation,
@@ -16,7 +17,7 @@ const ChooseDateandTime = ({
   route: any;
 }) => {
   const {id} = route.params;
-
+  const dispatch = useDispatch();
   const dateSlots = useSelector(
     (state: RootState) => state.userdata.dateSlots.data,
   );
@@ -65,6 +66,12 @@ const ChooseDateandTime = ({
           navigation.navigate(id === -1 ? 'chooseclinic' : 'chooseclinic', {
             id: id,
           });
+          dispatch(
+            updateAppoinmentForm({
+              appointDate: selectedDateId.value,
+              appoinmentTime: selectedTimeSlot.value,
+            }),
+          );
         }}
         style={styles.button}
         labelStyle={styles.buttonLabel}>

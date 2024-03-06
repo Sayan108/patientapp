@@ -5,8 +5,11 @@ import {TextInput, Button, Text, RadioButton} from 'react-native-paper';
 import HelperText from '../components/helperText';
 import {colors} from '../styles';
 import Layout from '../components/layOut';
+import {useDispatch} from 'react-redux';
+import {updateAppoinmentForm} from '../redux/silces/userdata.slice';
 
 const AddAppointment = ({navigation}: {navigation: any}) => {
+  const dispatch = useDispatch();
   const [appointmentDetails, setAppointmentDetails] = useState<any>({});
   const [showDropDown, setshowDropDown] = useState(false);
   const handleNavigation = () => {
@@ -17,11 +20,11 @@ const AddAppointment = ({navigation}: {navigation: any}) => {
       <TextInput
         maxLength={50}
         autoFocus
-        value={appointmentDetails?.fullname}
+        value={appointmentDetails?.patientName}
         label="Full name"
         mode="outlined"
         onChangeText={(text: string) => {
-          setAppointmentDetails({...appointmentDetails, fullname: text});
+          setAppointmentDetails({...appointmentDetails, patientName: text});
         }}
         style={styles.input}
         placeholder="Jhon Doe"
@@ -31,7 +34,7 @@ const AddAppointment = ({navigation}: {navigation: any}) => {
       <HelperText
         text="This field is required"
         type="error"
-        show={appointmentDetails?.fullname?.length === 0}
+        show={appointmentDetails?.patientName?.length === 0}
       />
       <TextInput
         activeOutlineColor={colors.primaryColor}
@@ -124,11 +127,11 @@ const AddAppointment = ({navigation}: {navigation: any}) => {
       <TextInput
         activeOutlineColor={colors.primaryColor}
         maxLength={10}
-        value={appointmentDetails?.phone}
+        value={appointmentDetails?.patientPhone}
         label="Phone"
         mode="outlined"
         onChangeText={(text: string) => {
-          setAppointmentDetails({...appointmentDetails, phone: text});
+          setAppointmentDetails({...appointmentDetails, patientPhone: text});
         }}
         style={styles.input}
         placeholder="1234567890"
@@ -158,6 +161,7 @@ const AddAppointment = ({navigation}: {navigation: any}) => {
         mode="contained"
         onPress={() => {
           navigation.navigate('choosedateandtime');
+          dispatch(updateAppoinmentForm(appointmentDetails));
         }}
         style={styles.button}
         labelStyle={styles.buttonLabel}>

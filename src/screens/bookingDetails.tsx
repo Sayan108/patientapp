@@ -50,14 +50,14 @@ const BookingDetails = ({navigation, route}: {navigation: any; route: any}) => {
         <Text style={styles.sectionHeading}>Patient Details</Text>
         <View style={styles.section}>
           <Text style={styles.sectionDetails}>Name: {customer.name}</Text>
-          <Text style={styles.sectionDetails}>Email: {customer.email}</Text>
+
           <Text style={styles.sectionDetails}>Phone: {customer.phone}</Text>
         </View>
         <Text style={styles.sectionHeading}>Booking Details</Text>
         <View style={styles.section}>
           <Text style={styles.sectionDetails}>Booking id: {product.name}</Text>
           <Text style={styles.sectionDetails}>Date: {product.name}</Text>
-          <Text style={styles.sectionDetails}>Time: ${product.price}</Text>
+          <Text style={styles.sectionDetails}>Time: {product.price}</Text>
         </View>
         <Text style={styles.sectionHeading}>Payment Details</Text>
         <View style={styles.section}>

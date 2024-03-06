@@ -85,6 +85,22 @@ export interface ITimeslots {
   id: string;
   value: string;
 }
+
+export interface IAppoinmentForm {
+  patientPhone?: string;
+  loading: boolean;
+  patientName?: string;
+  clinicAddress?: string;
+  appoinmentTime?: string;
+  appoinmentDate?: string;
+
+  gender?: string;
+  age?: string | number;
+  problem?: string;
+}
+
+export interface Clinic {}
+
 export interface UserData {
   upcomingAppoinment: {data: IAppoinment | null; loading: boolean; error: any};
   appoinmentList: {data: IAppoinment[]; loading: boolean; error: any};
@@ -95,6 +111,8 @@ export interface UserData {
     loading: boolean;
     error: any;
   };
+
+  appoinmentForm?: IAppoinmentForm;
 }
 
 export const UserDataInitialState: UserData = {

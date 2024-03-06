@@ -3,10 +3,12 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import {colors} from '../styles';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../redux';
+import {getAppoinmentDetailsRequested} from '../redux/silces/userdata.slice';
 
 const AppoinmentCard = ({navigation}: {navigation: any}) => {
+  const dispatch = useDispatch();
   const appoinmentDetails = useSelector(
     (state: RootState) => state.userdata.upcomingAppoinment.data,
   );
@@ -16,6 +18,11 @@ const AppoinmentCard = ({navigation}: {navigation: any}) => {
       {appoinmentDetails && (
         <Pressable
           onPress={() => {
+            dispatch(
+              getAppoinmentDetailsRequested(
+                parseInt(appoinmentDetails.appoinmentId) - 1,
+              ),
+            );
             navigation.navigate('appoinmentdetails', {
               id: appoinmentDetails.appoinmentId,
             });
