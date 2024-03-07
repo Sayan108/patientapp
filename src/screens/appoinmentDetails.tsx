@@ -86,7 +86,7 @@ const AppoinmentDetails = ({
                         />
                       )}
                       onPress={() => {
-                        navigation.navigate('choosedateandtime', {id: id});
+                        navigation.navigate('chooseclinic', {id: id});
                         setvisible(!visible);
                       }}
                     />

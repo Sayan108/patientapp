@@ -39,7 +39,7 @@ const ChooseDateandTime = ({
   };
 
   const handleNavigation = () => {
-    navigation.navigate(id === -1 ? 'addappoinment' : 'appoinmentdetails', {
+    navigation.navigate(id === -1 ? 'chooseclinic' : 'chooseclinic', {
       id: id,
     });
   };
@@ -63,7 +63,7 @@ const ChooseDateandTime = ({
       <Button
         mode="contained"
         onPress={() => {
-          navigation.navigate(id === -1 ? 'chooseclinic' : 'chooseclinic', {
+          navigation.navigate(id === -1 ? 'makepayment' : 'makepayment', {
             id: id,
           });
           dispatch(

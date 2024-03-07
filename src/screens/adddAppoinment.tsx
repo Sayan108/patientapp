@@ -160,7 +160,7 @@ const AddAppointment = ({navigation}: {navigation: any}) => {
       <Button
         mode="contained"
         onPress={() => {
-          navigation.navigate('choosedateandtime');
+          navigation.navigate('chooseclinic');
           dispatch(updateAppoinmentForm(appointmentDetails));
         }}
         style={styles.button}

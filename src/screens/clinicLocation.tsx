@@ -57,7 +57,7 @@ const ClinicLocation = ({navigation, route}: {navigation: any; route: any}) => {
     },
   ];
   const handleNavigation = () => {
-    navigation.navigate(id === -1 ? 'choosedateandtime' : 'choosedateandtime', {
+    navigation.navigate(id === -1 ? 'addappoinment' : 'appoinmentdetails', {
       id: id,
     });
   };
@@ -86,9 +86,12 @@ const ClinicLocation = ({navigation, route}: {navigation: any; route: any}) => {
       <Button
         mode="contained"
         onPress={() => {
-          navigation.navigate(id === -1 ? 'bookingdetails' : 'bookingdetails', {
-            id: id,
-          });
+          navigation.navigate(
+            id === -1 ? 'choosedateandtime' : 'choosedateandtime',
+            {
+              id: id,
+            },
+          );
         }}
         style={styles.button}
         labelStyle={styles.buttonLabel}>
