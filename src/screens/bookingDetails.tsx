@@ -3,6 +3,8 @@ import {View, Text, StyleSheet} from 'react-native';
 import Layout from '../components/layOut';
 import {colors} from '../styles';
 import {Button} from 'react-native-paper';
+import {useSelector} from 'react-redux';
+import {RootState} from '../redux';
 
 interface Customer {
   name: string;
@@ -29,7 +31,7 @@ interface BookingDetailsProps {
 
 const BookingDetails = ({navigation, route}: {navigation: any; route: any}) => {
   const {id} = route.params;
-
+  const data = useSelector((state: RootState) => state.userdata.appoinmentForm);
   const customer = {
     name: 'John Doe',
     email: 'john@example.com',
@@ -49,24 +51,30 @@ const BookingDetails = ({navigation, route}: {navigation: any; route: any}) => {
       <View style={styles.container}>
         <Text style={styles.sectionHeading}>Patient Details</Text>
         <View style={styles.section}>
-          <Text style={styles.sectionDetails}>Name: {customer.name}</Text>
+          <Text style={styles.sectionDetails}>Name: {data?.patientName}</Text>
 
-          <Text style={styles.sectionDetails}>Phone: {customer.phone}</Text>
+          <Text style={styles.sectionDetails}>Phone: {data?.patientPhone}</Text>
         </View>
         <Text style={styles.sectionHeading}>Booking Details</Text>
         <View style={styles.section}>
-          <Text style={styles.sectionDetails}>Booking id: {product.name}</Text>
-          <Text style={styles.sectionDetails}>Date: {product.name}</Text>
-          <Text style={styles.sectionDetails}>Time: {product.price}</Text>
+          <Text style={styles.sectionDetails}>Booking id: {'12345678'}</Text>
+          <Text style={styles.sectionDetails}>
+            Date: {data?.appoinmentDate}
+          </Text>
+          <Text style={styles.sectionDetails}>
+            Time: {data?.appoinmentTime}
+          </Text>
         </View>
         <Text style={styles.sectionHeading}>Payment Details</Text>
         <View style={styles.section}>
-          <Text style={styles.sectionDetails}>Payment id: {payment.id}</Text>
           <Text style={styles.sectionDetails}>
-            Payment Method: {payment.method}
+            Payment id: {data?.paymentDetails?.paymentId}
           </Text>
           <Text style={styles.sectionDetails}>
-            Total Amount: {payment.total}
+            Payment Method: {data?.paymentDetails?.paymentType}
+          </Text>
+          <Text style={styles.sectionDetails}>
+            Total Amount: {data?.paymentDetails?.ammount}
           </Text>
         </View>
       </View>

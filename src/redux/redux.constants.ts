@@ -93,7 +93,7 @@ export interface IAppoinmentForm {
   clinicAddress?: string;
   appoinmentTime?: string;
   appoinmentDate?: string;
-
+  paymentDetails?: IPaymentDetails;
   gender?: string;
   age?: string | number;
   problem?: string;

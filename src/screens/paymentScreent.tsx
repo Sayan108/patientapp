@@ -5,8 +5,10 @@ import {Button, RadioButton} from 'react-native-paper';
 import {updateAppoinmentForm} from '../redux/silces/userdata.slice';
 import {colors} from '../styles';
 import {useDispatch} from 'react-redux';
+import {IPaymentDetails} from '../redux/redux.constants';
 
 const Payment = ({navigation, route}: {navigation: any; route: any}) => {
+  const [paymentDetails, setPaymentDetails] = useState<IPaymentDetails>();
   const {id} = route.params;
   const [paymentType, setpaymentType] = useState('pay-at-clinic');
   const dispatch = useDispatch();
@@ -47,7 +49,12 @@ const Payment = ({navigation, route}: {navigation: any; route: any}) => {
       <Button
         mode="contained"
         onPress={() => {
-          dispatch(updateAppoinmentForm({}));
+          setPaymentDetails({
+            paymentId: '12345678',
+            paymentType: 'cash',
+            ammount: '1000',
+          });
+          dispatch(updateAppoinmentForm({paymentDetails}));
           navigation.navigate(id === -1 ? 'bookingdetails' : 'bookingdetails', {
             id: id,
           });
@@ -56,7 +63,7 @@ const Payment = ({navigation, route}: {navigation: any; route: any}) => {
         labelStyle={styles.buttonLabel}>
         <Text>
           {paymentType === 'pay-at-clinic'
-            ? 'Payment at clinic'
+            ? 'Pay at clinic'
             : 'Proceed to pay online'}
         </Text>
       </Button>
